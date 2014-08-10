@@ -1,12 +1,12 @@
-package com.formwall.entities;
+package com.formwall.repositories;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
 
-public abstract class Repository {
-	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+public abstract class BaseRepository {
+	protected DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	protected Iterable<Entity> getIterable(String type){
 		return datastore.prepare(new Query(type)).asIterable();
 	}

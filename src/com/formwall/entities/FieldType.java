@@ -8,7 +8,7 @@ public class FieldType {
 	private String htmlType;
 	private String regexValidator;
 
-	FieldType() {
+	public FieldType() {
 
 	}
 
@@ -19,28 +19,25 @@ public class FieldType {
 			setRegexValidator(e.getProperty("regexValidator").toString());
 		}
 	}
-
 	public Key getId() {
 		return id;
 	}
-
 	public String getHtmlType() {
 		return htmlType;
 	}
-
 	public String getRegexValidator() {
 		return regexValidator;
 	}
 
-	void setId(Key key) {
+	public void setId(Key key) {
 		this.id = key;
 	}
 
-	void setHtmlType(String htmlType) {
+	public void setHtmlType(String htmlType) {
 		this.htmlType = htmlType;
 	}
 
-	void setRegexValidator(String regexValidator) {
+	public void setRegexValidator(String regexValidator) {
 		this.regexValidator = regexValidator;
 	}
 

@@ -2,19 +2,26 @@ package com.formwall.web;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.formwall.entities.Session;
-import com.formwall.entities.SessionRepository;
 import com.formwall.entities.User;
-import com.formwall.entities.UserRepository;
+import com.formwall.repositories.ISessionRepository;
+import com.formwall.repositories.IUserRepository;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.ConflictException;
 
 @Api(name = "formwallApi", version = "v1")
 public class UserEndpoint {
-	private UserRepository repo = new UserRepository();
-	private SessionRepository sRepo = new SessionRepository();
+	private IUserRepository repo;
+	private ISessionRepository sRepo;
+	
+	@Inject
+	public UserEndpoint(IUserRepository ur, ISessionRepository sr){
+		this.repo = ur;
+		this.sRepo = sr;
+	}
 
 	public Session register(@Named("email") String email)
 			throws ConflictException {

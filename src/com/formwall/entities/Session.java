@@ -4,7 +4,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class Session {
+public class Session{
 	private Key id;
 	private Key userId;
 	public Session(Entity e){
@@ -30,13 +30,13 @@ public class Session {
 	public Key getId() {
 		return id;
 	}
-	void setId(Key id) {
+	public void setId(Key id) {
 		this.id = id;
 	}
 	public Key getUserId() {
 		return userId;
 	}
-	void setUserId(Key userId) {
+	public void setUserId(Key userId) {
 		this.userId = userId;
 	}
 }

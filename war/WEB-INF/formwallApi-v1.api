@@ -24,6 +24,21 @@
     "maxAge" : 0
   },
   "methods" : {
+    "formwallApi.seedEndpoint.seed" : {
+      "path" : "Seed",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.SeedEndpoint.Seed",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "formwallApi.userEndpoint.register" : {
       "path" : "register/{email}",
       "httpMethod" : "POST",
@@ -135,6 +150,8 @@
       }
     },
     "methods" : {
+      "com.formwall.web.SeedEndpoint.Seed" : {
+      },
       "com.formwall.web.UserEndpoint.register" : {
         "response" : {
           "$ref" : "Session"

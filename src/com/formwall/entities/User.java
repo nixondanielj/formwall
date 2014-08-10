@@ -17,7 +17,7 @@ public class User {
 	public Key getId() {
 		return id;
 	}
-	void setId(Key id) {
+	public void setId(Key id) {
 		this.id = id;
 	}
 	public String getEmail() {
@@ -37,7 +37,7 @@ public class User {
 		e.setProperty("password", getPassword());
 		return e;
 	}
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
