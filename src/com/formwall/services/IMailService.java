@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 
 import javax.mail.MessagingException;
 
-import com.formwall.entities.User;
+import com.formwall.entities.CustomUser;
 
 public interface IMailService {
-	void sendWelcomeEmail(User user) throws UnsupportedEncodingException, MessagingException;
+	void sendWelcomeEmail(CustomUser user) throws UnsupportedEncodingException, MessagingException;
 }

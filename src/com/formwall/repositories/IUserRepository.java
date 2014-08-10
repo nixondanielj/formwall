@@ -1,11 +1,11 @@
 package com.formwall.repositories;
 
-import com.formwall.entities.User;
+import com.formwall.entities.CustomUser;
 
 public interface IUserRepository {
 
-	public abstract void create(User user);
+	public abstract CustomUser create(CustomUser user);
 
-	public abstract User getByEmail(String email);
+	public abstract CustomUser getByEmail(String email);
 
 }

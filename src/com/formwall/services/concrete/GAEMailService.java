@@ -15,7 +15,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.formwall.entities.Email;
-import com.formwall.entities.User;
+import com.formwall.entities.CustomUser;
 import com.formwall.repositories.IEmailRepository;
 import com.formwall.services.IMailService;
 import com.formwall.utils.ISettingsProvider;
@@ -35,7 +35,7 @@ public class GAEMailService implements IMailService {
 	}
 
 	@Override
-	public void sendWelcomeEmail(User user)
+	public void sendWelcomeEmail(CustomUser user)
 			throws UnsupportedEncodingException, MessagingException {
 		Email email = emailRepo.getByName(settings.getWelcomeMessageName());
 		if (email.getTo() != null) {

@@ -2,7 +2,7 @@ package com.formwall.repositories.concrete;
 
 import java.util.logging.Logger;
 
-import com.formwall.entities.User;
+import com.formwall.entities.CustomUser;
 import com.formwall.repositories.BaseRepository;
 import com.formwall.repositories.IUserRepository;
 import com.google.appengine.api.datastore.Entity;
@@ -17,22 +17,23 @@ public class UserRepository extends BaseRepository implements IUserRepository {
 	 * @see com.formwall.repositories.concrete.IUserRepository#create(com.formwall.entities.concrete.User)
 	 */
 	@Override
-	public void create(User user){
+	public CustomUser create(CustomUser user){
 		logger.info("Creating user " + user.getEmail());
 		user.setId(persist(user.toEntity()).getKey());
+		return user;
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.formwall.repositories.concrete.IUserRepository#getByEmail(java.lang.String)
 	 */
 	@Override
-	public User getByEmail(String email){
-		User u = null;
+	public CustomUser getByEmail(String email){
+		CustomUser u = null;
 		Filter emailFilter = new FilterPredicate("email", FilterOperator.EQUAL, email);
-		Entity userEntity = datastore.prepare(new Query(User.class.getSimpleName()).setFilter(emailFilter))
+		Entity userEntity = datastore.prepare(new Query(CustomUser.class.getSimpleName()).setFilter(emailFilter))
 				.asSingleEntity();
 		if(userEntity != null){
-			u = new User(userEntity);
+			u = new CustomUser(userEntity);
 		}
 		return u;
 	}

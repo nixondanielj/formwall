@@ -3,14 +3,14 @@ package com.formwall.entities;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 
-public class User {
+public class CustomUser {
 	private Key id;
 	private String email;
 	private String password;
-	public User(){
+	public CustomUser(){
 		
 	}
-	public User(Entity e){
+	public CustomUser(Entity e){
 		setId(e.getKey());
 		setEmail(e.getProperty("email").toString());
 	}
@@ -31,7 +31,7 @@ public class User {
 		if(getId() != null){
 			e = new Entity(getId());
 		} else {
-			e = new Entity(User.class.getSimpleName());
+			e = new Entity(CustomUser.class.getSimpleName());
 		}
 		e.setProperty("email", getEmail());
 		e.setProperty("password", getPassword());

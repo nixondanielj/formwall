@@ -9,7 +9,9 @@ import com.formwall.repositories.concrete.FieldTypeRepository;
 import com.formwall.repositories.concrete.SessionRepository;
 import com.formwall.repositories.concrete.UserRepository;
 import com.formwall.services.IMailService;
+import com.formwall.services.ICustomUserService;
 import com.formwall.services.concrete.GAEMailService;
+import com.formwall.services.concrete.CustomUserService;
 import com.formwall.utils.DSSettingsProvider;
 import com.formwall.utils.ISeeder;
 import com.formwall.utils.ISettingsProvider;
@@ -30,6 +32,7 @@ public class BaseModule extends AbstractModule {
 		bind(ISessionRepository.class).to(SessionRepository.class);
 		bind(IEmailRepository.class).to(EmailRepository.class);
 		bind(ISeeder.class).to(Seeder.class);
+		bind(ICustomUserService.class).to(CustomUserService.class);
 	}
 	
 }
