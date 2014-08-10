@@ -37,8 +37,11 @@ public class Seeder implements ISeeder {
 	 */
 	@Override
 	public void seed() {
+		logger.info("Seeding settings...");
 		seedSettings();
+		logger.info("Seeding emails...");
 		seedEmail();
+		logger.info("Seeding field types...");
 		seedFieldTypes();
 	}
 
