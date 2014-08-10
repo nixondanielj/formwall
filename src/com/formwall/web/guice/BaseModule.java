@@ -17,6 +17,9 @@ import com.formwall.utils.Seeder;
 import com.google.inject.AbstractModule;
 
 public class BaseModule extends AbstractModule {
+	
+	//TODO https://github.com/google/guice/wiki/CustomInjections
+	// above is for injecting logger
 
 	@Override
 	protected void configure() {

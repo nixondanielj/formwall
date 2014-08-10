@@ -1,5 +1,7 @@
 package com.formwall.repositories.concrete;
 
+import java.util.logging.Logger;
+
 import com.formwall.entities.User;
 import com.formwall.repositories.BaseRepository;
 import com.formwall.repositories.IUserRepository;
@@ -10,11 +12,13 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class UserRepository extends BaseRepository implements IUserRepository {
+	private final static Logger logger = Logger.getLogger(UserRepository.class.getName());
 	/* (non-Javadoc)
 	 * @see com.formwall.repositories.concrete.IUserRepository#create(com.formwall.entities.concrete.User)
 	 */
 	@Override
 	public void create(User user){
+		logger.info("Creating user " + user.getEmail());
 		user.setId(persist(user.toEntity()).getKey());
 	}
 	

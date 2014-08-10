@@ -110,7 +110,7 @@ public class Seeder implements ISeeder {
 				settings.getWelcomeMessageName(), "from",
 				"nixon.daniel.j@gmail.com", "bcc", "nixon.daniel.j@gmail.com",
 				"subject", "this is a subject", "message",
-				"this is the message", "senderTitle", "senderstitle"));
+				"this is the welcome message, password is __password__", "senderTitle", "senderstitle"));
 		putIfNeeded(l);
 	}
 
