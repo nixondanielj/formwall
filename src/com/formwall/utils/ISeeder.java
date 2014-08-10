@@ -2,6 +2,6 @@ package com.formwall.utils;
 
 public interface ISeeder {
 
-	public abstract void seed();
+	public abstract void seed(boolean clear);
 
 }

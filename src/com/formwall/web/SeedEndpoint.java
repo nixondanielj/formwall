@@ -4,6 +4,8 @@ import javax.inject.Inject;
 
 import com.formwall.utils.ISeeder;
 import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.config.Nullable;
 
 @Api(name = "formwallApi", version = "v1")
 public class SeedEndpoint {
@@ -12,7 +14,7 @@ public class SeedEndpoint {
 	public SeedEndpoint(ISeeder seeder){
 		this.seeder = seeder;
 	}
-	public void Seed(){
-		seeder.seed();
+	public void seed(@Named("clear") @Nullable boolean clear){
+		seeder.seed(clear);
 	}
 }

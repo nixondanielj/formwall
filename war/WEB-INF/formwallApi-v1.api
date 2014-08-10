@@ -25,14 +25,20 @@
   },
   "methods" : {
     "formwallApi.seedEndpoint.seed" : {
-      "path" : "Seed",
+      "path" : "seed",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.formwall.web.SeedEndpoint.Seed",
+      "rosyMethod" : "com.formwall.web.SeedEndpoint.seed",
       "request" : {
+        "parameters" : {
+          "clear" : {
+            "type" : "boolean",
+            "required" : false
+          }
+        },
         "body" : "empty"
       },
       "response" : {
@@ -150,7 +156,7 @@
       }
     },
     "methods" : {
-      "com.formwall.web.SeedEndpoint.Seed" : {
+      "com.formwall.web.SeedEndpoint.seed" : {
       },
       "com.formwall.web.UserEndpoint.register" : {
         "response" : {

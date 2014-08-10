@@ -11,6 +11,7 @@ import com.formwall.entities.FieldType;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilter;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -36,13 +37,37 @@ public class Seeder implements ISeeder {
 	 * @see com.formwall.utils.ISeeder#seed()
 	 */
 	@Override
-	public void seed() {
+	public void seed(boolean clear) {
+		if(clear){
+			deleteAll();
+		}
 		logger.info("Seeding settings...");
 		seedSettings();
 		logger.info("Seeding emails...");
 		seedEmail();
 		logger.info("Seeding field types...");
 		seedFieldTypes();
+	}
+
+	private void deleteAll() {
+		logger.info("Clearing seed data...");
+		List<Key> keys = new ArrayList<Key>();
+		Query query = new Query("Setting");
+		keys.addAll(selectKeys(query));
+		query = new Query(FieldType.class.getSimpleName());
+		keys.addAll(selectKeys(query));
+		query = new Query(Email.class.getSimpleName());
+		keys.addAll(selectKeys(query));
+		logger.info(String.format("%s items cleared", keys.size()));
+		datastore.delete(keys);
+	}
+	
+	private List<Key> selectKeys(Query query){
+		List<Key> keys = new ArrayList<Key>();
+		for(Entity e : datastore.prepare(query).asIterable()){
+			keys.add(e.getKey());
+		}
+		return keys;
 	}
 
 	private boolean alreadyExists(Entity e) {

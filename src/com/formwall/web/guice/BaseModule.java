@@ -8,11 +8,11 @@ import com.formwall.repositories.concrete.EmailRepository;
 import com.formwall.repositories.concrete.FieldTypeRepository;
 import com.formwall.repositories.concrete.SessionRepository;
 import com.formwall.repositories.concrete.UserRepository;
+import com.formwall.services.IMailService;
+import com.formwall.services.concrete.GAEMailService;
 import com.formwall.utils.DSSettingsProvider;
-import com.formwall.utils.IMailer;
 import com.formwall.utils.ISeeder;
 import com.formwall.utils.ISettingsProvider;
-import com.formwall.utils.Mailer;
 import com.formwall.utils.Seeder;
 import com.google.inject.AbstractModule;
 
@@ -21,7 +21,7 @@ public class BaseModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(ISettingsProvider.class).to(DSSettingsProvider.class);
-		bind(IMailer.class).to(Mailer.class);
+		bind(IMailService.class).to(GAEMailService.class);
 		bind(IFieldTypeRepository.class).to(FieldTypeRepository.class);
 		bind(IUserRepository.class).to(UserRepository.class);
 		bind(ISessionRepository.class).to(SessionRepository.class);
