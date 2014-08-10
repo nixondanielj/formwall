@@ -10,7 +10,8 @@ public abstract class Repository {
 	protected Iterable<Entity> getIterable(String type){
 		return datastore.prepare(new Query(type)).asIterable();
 	}
-	protected void persist(Entity entity){
+	protected Entity persist(Entity entity){
 		datastore.put(entity);
+		return entity;
 	}
 }

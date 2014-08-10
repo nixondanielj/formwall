@@ -24,6 +24,27 @@
     "maxAge" : 0
   },
   "methods" : {
+    "formwallApi.userEndpoint.register" : {
+      "path" : "register/{email}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.UserEndpoint.register",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "formwallApi.fieldTypeEndpoint.list" : {
       "path" : "fieldtype",
       "httpMethod" : "GET",
@@ -42,17 +63,17 @@
   },
   "descriptor" : {
     "schemas" : {
-      "FieldType" : {
-        "id" : "FieldType",
+      "Session" : {
+        "id" : "Session",
         "type" : "object",
         "properties" : {
           "id" : {
             "$ref" : "Key"
           },
-          "htmlType" : {
-            "type" : "string"
+          "userId" : {
+            "$ref" : "Key"
           },
-          "regexValidator" : {
+          "authCode" : {
             "type" : "string"
           }
         }
@@ -85,6 +106,21 @@
           }
         }
       },
+      "FieldType" : {
+        "id" : "FieldType",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "Key"
+          },
+          "htmlType" : {
+            "type" : "string"
+          },
+          "regexValidator" : {
+            "type" : "string"
+          }
+        }
+      },
       "FieldTypeCollection" : {
         "id" : "FieldTypeCollection",
         "type" : "object",
@@ -99,6 +135,11 @@
       }
     },
     "methods" : {
+      "com.formwall.web.UserEndpoint.register" : {
+        "response" : {
+          "$ref" : "Session"
+        }
+      },
       "com.formwall.web.FieldTypeEndpoint.list" : {
         "response" : {
           "$ref" : "FieldTypeCollection"
