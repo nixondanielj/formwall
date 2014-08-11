@@ -10,6 +10,7 @@
     <filter-name>guiceFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
 
   <listener>
     <listener-class>com.formwall.web.guice.MyGSCL</listener-class>

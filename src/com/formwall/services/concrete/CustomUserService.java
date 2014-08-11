@@ -42,9 +42,4 @@ public class CustomUserService implements ICustomUserService {
 		return user;
 	}
 
-	@Override
-	public Session beginSession(CustomUser user) {
-		return sessionRepo.createSessionForUser(user);
-	}
-
 }
