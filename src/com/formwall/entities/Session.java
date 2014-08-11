@@ -10,6 +10,7 @@ public class Session{
 	private Key id;
 	private Key userId;
 	private Date expiration;
+	private String authcode;
 	public Session(Entity e){
 		setUserId((Key)e.getProperty("userId"));
 		setId(e.getKey());
@@ -29,13 +30,14 @@ public class Session{
 		return e;
 	}
 	public String getAuthCode(){
-		return KeyFactory.keyToString(getId());
+		return authcode;
 	}
 	public Key getId() {
 		return id;
 	}
 	public void setId(Key id) {
 		this.id = id;
+		this.authcode = KeyFactory.keyToString(id);
 	}
 	public Key getUserId() {
 		return userId;

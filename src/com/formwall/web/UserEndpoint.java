@@ -7,6 +7,7 @@ import javax.inject.Named;
 import javax.mail.MessagingException;
 
 import com.formwall.entities.CustomUser;
+import com.formwall.entities.Session;
 import com.formwall.services.ICustomUserService;
 import com.formwall.services.ISessionService;
 import com.google.api.server.spi.config.Api;
@@ -23,12 +24,12 @@ public class UserEndpoint {
 		this.usrSvc = usrSvc;
 	}
 
-	public String register(@Named("email") String email)
+	public Session register(@Named("email") String email)
 			throws ConflictException, UnsupportedEncodingException, MessagingException {
 		if(usrSvc.alreadyExists(email)){
 			throw new ConflictException("User already exists");
 		}
 		CustomUser user = usrSvc.registerByEmail(email);
-		return sessionSvc.beginSession(user).getAuthCode();
+		return sessionSvc.beginSession(user);
 	}
 }
