@@ -7,23 +7,19 @@ import javax.inject.Inject;
 import javax.mail.MessagingException;
 
 import com.formwall.entities.CustomUser;
-import com.formwall.entities.Session;
-import com.formwall.repositories.ISessionRepository;
 import com.formwall.repositories.IUserRepository;
-import com.formwall.services.IMailService;
 import com.formwall.services.ICustomUserService;
+import com.formwall.services.IMailService;
 
 public class CustomUserService implements ICustomUserService {
 	
 	private IMailService mailSvc;
 	private IUserRepository userRepo;
-	private ISessionRepository sessionRepo;
 
 	@Inject
-	public CustomUserService(IMailService mailSvc, IUserRepository userRepo, ISessionRepository sessionRepo){
+	public CustomUserService(IMailService mailSvc, IUserRepository userRepo){
 		this.mailSvc = mailSvc;
 		this.userRepo = userRepo;
-		this.sessionRepo = sessionRepo;
 	}
 
 	@Override

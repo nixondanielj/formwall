@@ -1,0 +1,177 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://myapp.appspot.com/_ah/api",
+  "name" : "formwallApi",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://myapp.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "formwallApi.seedEndpoint.seed" : {
+      "path" : "seed",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.SeedEndpoint.seed",
+      "request" : {
+        "parameters" : {
+          "clear" : {
+            "type" : "boolean",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "formwallApi.userEndpoint.register" : {
+      "path" : "register/{email}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.UserEndpoint.register",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "formwallApi.fieldTypeEndpoint.list" : {
+      "path" : "fieldtype",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.FieldTypeEndpoint.list",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Session" : {
+        "id" : "Session",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "Key"
+          },
+          "userId" : {
+            "$ref" : "Key"
+          },
+          "expiration" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "authCode" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "complete" : {
+            "type" : "boolean"
+          },
+          "namespace" : {
+            "type" : "string"
+          }
+        }
+      },
+      "FieldType" : {
+        "id" : "FieldType",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "Key"
+          },
+          "htmlType" : {
+            "type" : "string"
+          },
+          "regexValidator" : {
+            "type" : "string"
+          }
+        }
+      },
+      "FieldTypeCollection" : {
+        "id" : "FieldTypeCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "FieldType"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.formwall.web.SeedEndpoint.seed" : {
+      },
+      "com.formwall.web.UserEndpoint.register" : {
+        "response" : {
+          "$ref" : "Session"
+        }
+      },
+      "com.formwall.web.FieldTypeEndpoint.list" : {
+        "response" : {
+          "$ref" : "FieldTypeCollection"
+        }
+      }
+    }
+  }
+}
