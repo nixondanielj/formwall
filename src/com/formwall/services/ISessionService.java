@@ -4,7 +4,11 @@ import com.formwall.entities.CustomUser;
 import com.formwall.entities.Session;
 
 public interface ISessionService {
-	boolean isValidSession(String authcode);
-
+	public boolean isValidSession(Session session);
+	
 	Session beginSession(CustomUser user);
+	
+	Session retrieveSession(String authCode);
+	
+	Session retrieveSession(CustomUser user);
 }

@@ -20,11 +20,13 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class Seeder implements ISeeder {
-	
-	private final static Logger logger = Logger.getLogger(Seeder.class.getName());
+
+	private final static Logger logger = Logger.getLogger(Seeder.class
+			.getName());
 	private DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 	private ISettingsProvider settings;
+	private List<Entity> list;
 
 	@Inject
 	public Seeder(ISettingsProvider settings) {
@@ -38,15 +40,15 @@ public class Seeder implements ISeeder {
 	 */
 	@Override
 	public void seed(boolean clear) {
-		if(clear){
+		if (clear) {
 			deleteAll();
 		}
-		logger.info("Seeding settings...");
+		list = new ArrayList<Entity>();
 		seedSettings();
-		logger.info("Seeding emails...");
 		seedEmail();
-		logger.info("Seeding field types...");
 		seedFieldTypes();
+		logger.info("Seeding data...");
+		putIfNeeded(list);
 	}
 
 	private void deleteAll() {
@@ -58,13 +60,13 @@ public class Seeder implements ISeeder {
 		keys.addAll(selectKeys(query));
 		query = new Query(Email.class.getSimpleName());
 		keys.addAll(selectKeys(query));
-		logger.info(String.format("%s items cleared", keys.size()));
+		logger.info(String.format("Clearing %s items", keys.size()));
 		datastore.delete(keys);
 	}
-	
-	private List<Key> selectKeys(Query query){
+
+	private List<Key> selectKeys(Query query) {
 		List<Key> keys = new ArrayList<Key>();
-		for(Entity e : datastore.prepare(query).asIterable()){
+		for (Entity e : datastore.prepare(query).asIterable()) {
 			keys.add(e.getKey());
 		}
 		return keys;
@@ -105,28 +107,24 @@ public class Seeder implements ISeeder {
 	}
 
 	private void seedEmail() {
-		List<Entity> l = new ArrayList<Entity>();
-		l.add(buildEntity(Email.class.getSimpleName(), "name",
+		list.add(buildEntity(Email.class.getSimpleName(), "name",
 				settings.getWelcomeMessageName(), "from",
 				"nixon.daniel.j@gmail.com", "bcc", "nixon.daniel.j@gmail.com",
 				"subject", "this is a subject", "message",
-				"this is the welcome message, password is __password__", "senderTitle", "senderstitle"));
-		putIfNeeded(l);
+				"this is the welcome message, password is __password__",
+				"senderTitle", "senderstitle"));
 	}
 
 	private void seedFieldTypes() {
-		List<Entity> l = new ArrayList<Entity>();
-		l.add(buildEntity(FieldType.class.getSimpleName(), "htmlType", "text"));
-		l.add(buildEntity(FieldType.class.getSimpleName(), "htmlType", "email",
-				"regexValidator", ".*@.*\\..*"));
-		putIfNeeded(l);
+		list.add(buildEntity(FieldType.class.getSimpleName(), "htmlType",
+				"text"));
+		list.add(buildEntity(FieldType.class.getSimpleName(), "htmlType",
+				"email", "regexValidator", ".*@.*\\..*"));
 	}
 
 	private void seedSettings() {
-		List<Entity> l = new ArrayList<Entity>();
-		l.add(buildEntity("Setting", "term", "adminEmail", "value",
+		list.add(buildEntity("Setting", "term", "adminEmail", "value",
 				"nixon.daniel.j@gmail.com"));
-		l.add(buildEntity("Setting", "term", "welcome", "value", "welcome"));
-		putIfNeeded(l);
+		list.add(buildEntity("Setting", "term", "welcome", "value", "welcome"));
 	}
 }

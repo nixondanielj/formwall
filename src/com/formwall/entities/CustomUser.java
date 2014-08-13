@@ -1,5 +1,7 @@
 package com.formwall.entities;
 
+import java.util.List;
+
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 
@@ -7,12 +9,17 @@ public class CustomUser {
 	private Key id;
 	private String email;
 	private String password;
+	private List<String> roles;
 	public CustomUser(){
 		
 	}
+	@SuppressWarnings("unchecked")
 	public CustomUser(Entity e){
 		setId(e.getKey());
 		setEmail(e.getProperty("email").toString());
+		if(e.getProperty("roles") != null){
+			roles = (List<String>) e.getProperty("roles");
+		}
 	}
 	public Key getId() {
 		return id;
@@ -35,6 +42,7 @@ public class CustomUser {
 		}
 		e.setProperty("email", getEmail());
 		e.setProperty("password", getPassword());
+		e.setProperty("roles", getRoles());
 		return e;
 	}
 	public String getPassword() {
@@ -42,5 +50,11 @@ public class CustomUser {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public List<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

@@ -1,11 +1,17 @@
 package com.formwall.repositories.concrete;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
+
 
 import com.formwall.entities.CustomUser;
 import com.formwall.repositories.BaseRepository;
 import com.formwall.repositories.IUserRepository;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -36,5 +42,24 @@ public class UserRepository extends BaseRepository implements IUserRepository {
 			u = new CustomUser(userEntity);
 		}
 		return u;
+	}
+
+	@Override
+	public void persist(CustomUser user) {
+		persist(user.toEntity());
+	}
+
+	@Override
+	public CustomUser getById(Key id) {
+		CustomUser user = null;
+		try{
+			Entity entity = datastore.get(id);
+			user = new CustomUser(entity);
+			logger.info(String.format("Retrieved user %s from store", user.getEmail()));
+			
+		} catch(EntityNotFoundException e){
+			logger.log(Level.WARNING, String.format("User retrieval by key failed, key %s", id.toString()), e);
+		}
+		return user;
 	}
 }
