@@ -1,5 +1,6 @@
 package com.formwall.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.appengine.api.datastore.Entity;
@@ -52,6 +53,9 @@ public class CustomUser {
 		this.password = password;
 	}
 	public List<String> getRoles() {
+		if(roles == null){
+			roles = new ArrayList<String>();
+		}
 		return roles;
 	}
 	public void setRoles(List<String> roles) {

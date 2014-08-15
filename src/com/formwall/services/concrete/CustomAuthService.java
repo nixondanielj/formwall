@@ -31,7 +31,7 @@ public class CustomAuthService implements IAuthService {
 	@Override
 	public boolean isAuthorized(Session session, Roles role) {
 		if(sessionSvc.isValidSession(session)){
-			CustomUser user = userRepo.getById(session.getId());
+			CustomUser user = userRepo.getById(session.getUserId());
 			return user.getRoles().contains(role.name());
 		}
 		return false;
