@@ -1,5 +1,5 @@
 ﻿/// <reference path="../references.js" />
-formwallCtrls.controller("RegistrationCtrl", ['$scope', '$window', function ($scope, $window) {
+formwallCtrls.controller("RegistrationCtrl", ['$scope', '$window', 'AuthSvc', function ($scope, $window, authSvc) {
 
     // aggravating init logic...
     $window.init = function () {
@@ -14,5 +14,8 @@ formwallCtrls.controller("RegistrationCtrl", ['$scope', '$window', function ($sc
             .execute(function(resp){
                 console.log(resp);
             });
+    }
+    $scope.signinWithGoogle = function () {
+        authSvc.signin(false);
     }
 }]);

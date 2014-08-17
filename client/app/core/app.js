@@ -7,6 +7,9 @@ formwallApp.config(['$routeProvider', function ($routeProvider) {
         .when('/', {
             templateUrl: 'app/views/home.html',
             controller: 'RegistrationCtrl'
+        }).when('/seed', {
+            templateUrl: 'app/views/seed.html',
+            controller: 'SeedCtrl'
         }).otherwise({
             redirectTo: '/'
         });
