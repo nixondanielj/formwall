@@ -14,19 +14,16 @@ import com.google.api.server.spi.config.Nullable;
 public class SeedEndpoint {
 	private ISeeder seeder;
 	private IAuthService authSvc;
-	private String authCode;
 
 	@Inject
-	public SeedEndpoint(ISeeder seeder, IAuthService authSvc,
-			HttpServletRequest request) {
+	public SeedEndpoint(ISeeder seeder, IAuthService authSvc) {
 		this.seeder = seeder;
 		this.authSvc = authSvc;
-		this.authCode = new AuthHelper().getAuthValue(request);
 	}
 
 	public void seed(@Named("clear") @Nullable boolean clear,
 			HttpServletRequest req) {
-		if (authSvc.isAuthorized(authCode, Roles.Admin)) {
+		if (authSvc.isAuthorized(new AuthHelper().getAuthValue(req), Roles.Admin)) {
 			seeder.seed(clear);
 		}
 	}

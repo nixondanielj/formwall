@@ -19,10 +19,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/javax.inject.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-labs.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-stubs.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-testing.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

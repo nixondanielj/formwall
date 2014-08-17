@@ -2,6 +2,8 @@ package com.formwall.services.concrete;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import com.formwall.entities.CustomUser;
 import com.formwall.entities.Session;
 import com.formwall.repositories.ISessionRepository;
@@ -10,6 +12,7 @@ import com.formwall.services.ISessionService;
 public class SessionService implements ISessionService {
 
 	private ISessionRepository sessionRepo;
+	@Inject
 	public SessionService(ISessionRepository sessionRepo){
 		this.sessionRepo = sessionRepo;
 	}
