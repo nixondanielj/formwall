@@ -3,15 +3,12 @@ package com.formwall.repositories.concrete;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
-
 import com.formwall.entities.CustomUser;
 import com.formwall.repositories.BaseRepository;
 import com.formwall.repositories.IUserRepository;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -25,7 +22,7 @@ public class UserRepository extends BaseRepository implements IUserRepository {
 	@Override
 	public CustomUser create(CustomUser user){
 		logger.info("Creating user " + user.getEmail());
-		user.setId(persist(user.toEntity()).getKey());
+		user.setId(KeyFactory.keyToString(persist(tryMapToEntity(CustomUser.class, user)).getKey()));
 		return user;
 	}
 	
@@ -39,22 +36,22 @@ public class UserRepository extends BaseRepository implements IUserRepository {
 		Entity userEntity = datastore.prepare(new Query(CustomUser.class.getSimpleName()).setFilter(emailFilter))
 				.asSingleEntity();
 		if(userEntity != null){
-			u = new CustomUser(userEntity);
+			u = tryMapFromEntity(userEntity, CustomUser.class);
 		}
 		return u;
 	}
 
 	@Override
 	public void persist(CustomUser user) {
-		persist(user.toEntity());
+		persist(tryMapToEntity(CustomUser.class, user));
 	}
 
 	@Override
-	public CustomUser getById(Key id) {
+	public CustomUser getById(String id) {
 		CustomUser user = null;
 		try{
-			Entity entity = datastore.get(id);
-			user = new CustomUser(entity);
+			Entity entity = datastore.get(KeyFactory.stringToKey(id));
+			user = tryMapFromEntity(entity, CustomUser.class);
 			logger.info(String.format("Retrieved user %s from store", user.getEmail()));
 			
 		} catch(EntityNotFoundException e){

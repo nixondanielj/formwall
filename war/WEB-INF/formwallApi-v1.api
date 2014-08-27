@@ -80,6 +80,22 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
+    },
+    "formwallApi.formEndpoint.postForm" : {
+      "path" : "postForm",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.FormEndpoint.postForm",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
     }
   },
   "descriptor" : {
@@ -89,45 +105,14 @@
         "type" : "object",
         "properties" : {
           "id" : {
-            "$ref" : "Key"
+            "type" : "string"
           },
           "userId" : {
-            "$ref" : "Key"
+            "type" : "string"
           },
           "expiration" : {
             "type" : "string",
             "format" : "date-time"
-          },
-          "authCode" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
-          },
-          "complete" : {
-            "type" : "boolean"
-          },
-          "namespace" : {
-            "type" : "string"
           }
         }
       },
@@ -136,12 +121,18 @@
         "type" : "object",
         "properties" : {
           "id" : {
-            "$ref" : "Key"
+            "type" : "string"
           },
           "htmlType" : {
             "type" : "string"
           },
-          "regexValidator" : {
+          "defaultRegexValidator" : {
+            "type" : "string"
+          },
+          "defaultRequiredMessage" : {
+            "type" : "string"
+          },
+          "defaultErrorMessage" : {
             "type" : "string"
           }
         }
@@ -157,6 +148,60 @@
             }
           }
         }
+      },
+      "FormFormModel" : {
+        "id" : "FormFormModel",
+        "type" : "object",
+        "properties" : {
+          "form" : {
+            "$ref" : "Form"
+          },
+          "fields" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Field"
+            }
+          }
+        }
+      },
+      "Form" : {
+        "id" : "Form",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Field" : {
+        "id" : "Field",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "required" : {
+            "type" : "boolean"
+          },
+          "errorMessage" : {
+            "type" : "string"
+          },
+          "requiredMessage" : {
+            "type" : "string"
+          },
+          "formId" : {
+            "type" : "string"
+          },
+          "fieldTypeId" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
@@ -170,6 +215,11 @@
       "com.formwall.web.FieldTypeEndpoint.list" : {
         "response" : {
           "$ref" : "FieldTypeCollection"
+        }
+      },
+      "com.formwall.web.FormEndpoint.postForm" : {
+        "request" : {
+          "$ref" : "FormFormModel"
         }
       }
     }

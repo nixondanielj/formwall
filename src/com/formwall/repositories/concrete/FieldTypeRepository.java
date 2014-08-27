@@ -16,7 +16,7 @@ public class FieldTypeRepository extends BaseRepository implements IFieldTypeRep
 	public List<FieldType> getAll(){
 		ArrayList<FieldType> results = new ArrayList<FieldType>();
 		for(Entity entity : getIterable(FieldType.class.getSimpleName())){
-			results.add(new FieldType(entity));
+			results.add(tryMapFromEntity(entity, FieldType.class));
 		}
 		return results;
 	}

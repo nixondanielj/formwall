@@ -20,7 +20,7 @@
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
   <init-param>
    <param-name>services</param-name>
-   <param-value>com.formwall.web.FieldTypeEndpoint,com.formwall.web.SeedEndpoint,com.formwall.web.UserEndpoint</param-value>
+   <param-value>com.formwall.web.FieldTypeEndpoint,com.formwall.web.FormEndpoint,com.formwall.web.SeedEndpoint,com.formwall.web.UserEndpoint</param-value>
   </init-param>
  </servlet>
  <servlet-mapping>

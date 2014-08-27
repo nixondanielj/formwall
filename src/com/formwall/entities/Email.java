@@ -1,10 +1,8 @@
 package com.formwall.entities;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
 
 public class Email {
-	private Key id;
+	private String id;
 	private String name;
 	private String from;
 	private String to;
@@ -14,31 +12,11 @@ public class Email {
 	private String message;
 	private String senderTitle;
 
-	public Email(Entity entity) {
-		setId(entity.getKey());
-		setName(entity.getProperty("name").toString());
-		setFrom(entity.getProperty("from").toString());
-		setSubject(entity.getProperty("subject").toString());
-		setMessage(entity.getProperty("message").toString());
-		if (entity.getProperty("senderTitle") != null) {
-			setSenderTitle(entity.getProperty("senderTitle").toString());
-		}
-		if (entity.getProperty("to") != null) {
-			this.to = entity.getProperty("to").toString();
-		}
-		if (entity.getProperty("cc") != null) {
-			this.cc = entity.getProperty("cc").toString();
-		}
-		if (entity.getProperty("bcc") != null) {
-			this.bcc = entity.getProperty("bcc").toString();
-		}
-	}
-
-	public Key getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Key id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -67,7 +67,7 @@ public class IAuthServiceTest {
 		}
 		when(user.getRoles()).thenReturn(roles);
 		when(sessionSvc.isValidSession(any(Session.class))).thenReturn(authenticated);
-		when(userRepo.getById(any(Key.class))).thenReturn(user);
+		when(userRepo.getById(any(String.class))).thenReturn(user);
 		return factory(sessionSvc, userRepo);
 	}
 

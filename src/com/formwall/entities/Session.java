@@ -2,47 +2,20 @@ package com.formwall.entities;
 
 import java.util.Date;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 public class Session{
-	private Key id;
-	private Key userId;
+	private String id;
+	private String userId;
 	private Date expiration;
-	private String authcode;
-	public Session(Entity e){
-		setUserId((Key)e.getProperty("userId"));
-		setId(e.getKey());
-		setExpiration((Date)e.getProperty("expiration"));
-	}
-	public Session(){
-	}
-	public Entity toEntity(){
-		Entity e;
-		if(getId() != null){
-			e = new Entity(getId());
-		} else {
-			e = new Entity(Session.class.getSimpleName(), getUserId());
-		}
-		e.setProperty("userId", getUserId());
-		e.setProperty("expiration", getExpiration());
-		return e;
-	}
-	public String getAuthCode(){
-		return authcode;
-	}
-	public Key getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Key id) {
+	public void setId(String id) {
 		this.id = id;
-		this.authcode = KeyFactory.keyToString(id);
 	}
-	public Key getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(Key userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public Date getExpiration() {

@@ -14,12 +14,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.formwall.entities.Email;
 import com.formwall.entities.CustomUser;
+import com.formwall.entities.Email;
 import com.formwall.repositories.IEmailRepository;
 import com.formwall.services.IMailService;
 import com.formwall.utils.ISettingsProvider;
-import com.formwall.utils.Seeder;
 
 public class GAEMailService implements IMailService {
 	private final static Logger logger = Logger.getLogger(GAEMailService.class.getName());

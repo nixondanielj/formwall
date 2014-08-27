@@ -27,20 +27,20 @@ public class SessionRepository extends BaseRepository implements
 	 * (com.formwall.entities.IUser)
 	 */
 	@Override
-	public Session createSessionForUser(CustomUser user) {
+	public Session createSessionForUser(CustomUser user){
 		Session session = new Session();
 		session.setUserId(user.getId());
-		Entity e = session.toEntity();
+		Entity e = tryMapToEntity(Session.class,session);
 		persist(e);
-		return new Session(e);
+		return session;
 	}
 
 	@Override
-	public Session getByAuthCode(String authcode) {
+	public Session getByAuthCode(String authcode){
 		try {
 			Key key = KeyFactory.stringToKey(authcode);
 			Entity sessionEntity = datastore.get(key);
-			return new Session(sessionEntity);
+			return tryMapFromEntity(sessionEntity, Session.class);
 		} catch (EntityNotFoundException e) {
 		} catch (IllegalArgumentException e){
 		}
@@ -48,18 +48,18 @@ public class SessionRepository extends BaseRepository implements
 	}
 
 	@Override
-	public void persist(Session session) {
-		persist(session.toEntity());
+	public void persist(Session session){
+		persist(tryMapToEntity(Session.class,session));
 	}
 
 	@Override
-	public List<Session> getByUser(CustomUser user) {
+	public List<Session> getByUser(CustomUser user){
 		Query query = new Query(Session.class.getSimpleName());
 		Filter filter = new FilterPredicate("userId", FilterOperator.EQUAL, user.getId());
 		query.setFilter(filter);
 		List<Session> results = new ArrayList<Session>();
 		for(Entity e : datastore.prepare(query).asIterable()){
-			results.add(new Session(e));
+			results.add(tryMapFromEntity(e, Session.class));
 		}
 		return results;
 	}

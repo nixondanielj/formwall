@@ -1,35 +1,28 @@
 package com.formwall.entities;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
 
 public class FieldType {
-	private Key id;
+	private String id;
 	private String htmlType;
-	private String regexValidator;
+	private String defaultRegexValidator;
+	private String defaultRequiredMessage;
+	private String defaultErrorMessage;
 
 	public FieldType() {
 
 	}
 
-	public FieldType(Entity e) {
-		setId(e.getKey());
-		setHtmlType(e.getProperty("htmlType").toString());
-		if (e.getProperty("regexValidator") != null) {
-			setRegexValidator(e.getProperty("regexValidator").toString());
-		}
-	}
-	public Key getId() {
+	public String getId() {
 		return id;
 	}
 	public String getHtmlType() {
 		return htmlType;
 	}
-	public String getRegexValidator() {
-		return regexValidator;
+	public String getDefaultRegexValidator() {
+		return defaultRegexValidator;
 	}
 
-	public void setId(Key key) {
+	public void setId(String key) {
 		this.id = key;
 	}
 
@@ -37,19 +30,23 @@ public class FieldType {
 		this.htmlType = htmlType;
 	}
 
-	public void setRegexValidator(String regexValidator) {
-		this.regexValidator = regexValidator;
+	public void setDefaultRegexValidator(String regexValidator) {
+		this.defaultRegexValidator = regexValidator;
 	}
 
-	public Entity toEntity() {
-		Entity e;
-		if (getId() == null) {
-			e = new Entity(FieldType.class.getSimpleName());
-		} else {
-			e = new Entity(getId());
-		}
-		e.setProperty("htmlType", getHtmlType());
-		e.setProperty("regexValidator", getRegexValidator());
-		return e;
+	public String getDefaultRequiredMessage() {
+		return defaultRequiredMessage;
+	}
+
+	public void setDefaultRequiredMessage(String defaultRequiredMessage) {
+		this.defaultRequiredMessage = defaultRequiredMessage;
+	}
+
+	public String getDefaultErrorMessage() {
+		return defaultErrorMessage;
+	}
+
+	public void setDefaultErrorMessage(String defaultErrorMessage) {
+		this.defaultErrorMessage = defaultErrorMessage;
 	}
 }
