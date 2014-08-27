@@ -4,6 +4,8 @@ import com.formwall.web.models.FormFormModel;
 
 public interface IFormService {
 
-	void persist(FormFormModel model);
+	void persist(FormFormModel model) throws PermissionsException, PaywallException;
+
+	FormFormModel getById(String id);
 	
 }

@@ -96,6 +96,27 @@
       "response" : {
         "body" : "empty"
       }
+    },
+    "formwallApi.formEndpoint.get" : {
+      "path" : "formformmodel/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.FormEndpoint.get",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
@@ -173,6 +194,12 @@
           },
           "title" : {
             "type" : "string"
+          },
+          "fieldIds" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         }
       },
@@ -219,6 +246,11 @@
       },
       "com.formwall.web.FormEndpoint.postForm" : {
         "request" : {
+          "$ref" : "FormFormModel"
+        }
+      },
+      "com.formwall.web.FormEndpoint.get" : {
+        "response" : {
           "$ref" : "FormFormModel"
         }
       }

@@ -1,8 +1,11 @@
 package com.formwall.entities;
 
+import java.util.List;
+
 public class Form {
 	private String id;
 	private String title;
+	private List<String> fieldIds;
 	public String getId() {
 		return id;
 	}
@@ -14,6 +17,12 @@ public class Form {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public List<String> getFieldIds() {
+		return fieldIds;
+	}
+	public void setFieldIds(List<String> fieldIds) {
+		this.fieldIds = fieldIds;
 	}
 	
 }

@@ -3,6 +3,8 @@ package com.formwall.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.formwall.services.Roles;
+
 
 public class CustomUser {
 	private String id;
@@ -35,5 +37,9 @@ public class CustomUser {
 	}
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+	
+	public boolean hasRole(Roles role){
+		return getRoles().contains(role.name());
 	}
 }

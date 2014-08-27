@@ -5,11 +5,14 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import com.formwall.entities.CustomUser;
+import com.formwall.entities.Form;
 import com.formwall.entities.Session;
+import com.formwall.repositories.IPermissionRepository;
 import com.formwall.repositories.IUserRepository;
 import com.formwall.services.Credentials;
 import com.formwall.services.IAuthService;
 import com.formwall.services.ISessionService;
+import com.formwall.services.PermissionLevels;
 import com.formwall.services.Roles;
 
 public class CustomAuthService implements IAuthService {
@@ -17,7 +20,7 @@ public class CustomAuthService implements IAuthService {
 	private IUserRepository userRepo;
 	private ISessionService sessionSvc;
 	@Inject
-	public CustomAuthService(IUserRepository userRepo, ISessionService sessionSvc){
+	public CustomAuthService(IUserRepository userRepo, ISessionService sessionSvc, IPermissionRepository permissionRepo){
 		this.userRepo = userRepo;
 		this.sessionSvc = sessionSvc;
 	}
@@ -60,6 +63,26 @@ public class CustomAuthService implements IAuthService {
 	@Override
 	public boolean isAuthenticated(String authCode) {
 		return isAuthenticated(sessionSvc.retrieveSession(authCode));
+	}
+	@Override
+	public CustomUser getCurrentUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean hasPermission(Form form, PermissionLevels permission) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean canHaveMoreForms() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void addPermission(Form form, PermissionLevels permission) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
