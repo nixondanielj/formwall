@@ -29,6 +29,8 @@ public interface ICustomUserService {
 	 * @throws MessagingException If the messaging system fails
 	 * @throws DuplicateException If email is duplicate
 	 */
-	CustomUser registerByEmail(String email) throws UnsupportedEncodingException, MessagingException, DuplicateException;
+	CustomUser registerCustom(String email) throws UnsupportedEncodingException, MessagingException, DuplicateException;
+
+	CustomUser registerGoogle(String email);
 
 }

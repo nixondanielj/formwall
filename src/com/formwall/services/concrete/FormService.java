@@ -69,7 +69,7 @@ public class FormService implements IFormService {
 	}
 
 	@Override
-	public FormFormModel getById(String id) {
+	public FormFormModel getFMById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

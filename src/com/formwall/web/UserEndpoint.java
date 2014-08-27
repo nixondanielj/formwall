@@ -28,7 +28,7 @@ public class UserEndpoint {
 	public Session register(@Named("email") String email)
 			throws ConflictException, UnsupportedEncodingException, MessagingException {
 		try{
-			CustomUser user = usrSvc.registerByEmail(email);
+			CustomUser user = usrSvc.registerCustom(email);
 			return sessionSvc.beginSession(user);
 		} catch(DuplicateException e){
 			throw new ConflictException("User already exists");

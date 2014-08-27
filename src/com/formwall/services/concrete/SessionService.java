@@ -7,14 +7,17 @@ import javax.inject.Inject;
 import com.formwall.entities.CustomUser;
 import com.formwall.entities.Session;
 import com.formwall.repositories.ISessionRepository;
+import com.formwall.repositories.IUserRepository;
 import com.formwall.services.ISessionService;
 
 public class SessionService implements ISessionService {
 
 	private ISessionRepository sessionRepo;
+	private IUserRepository userRepo;
 	@Inject
-	public SessionService(ISessionRepository sessionRepo){
+	public SessionService(ISessionRepository sessionRepo, IUserRepository userRepo){
 		this.sessionRepo = sessionRepo;
+		this.userRepo = userRepo;
 	}
 	private  void renewSession(Session session) {
 		session.setExpiration(new Date(new Date().getTime() + 15 * 60 * 1000));
@@ -28,37 +31,17 @@ public class SessionService implements ISessionService {
 		renewSession(session);
 		return session;
 	}
-	@Override
 	public boolean isValidSession(Session session) {
-		boolean isValid = session != null && session.getExpiration().after(new Date());
-		if(isValid){
+		return session != null && session.getExpiration().after(new Date());
+	}
+	@Override
+	public CustomUser retrieveUser(String authcode) {
+		Session session = sessionRepo.getByAuthCode(authcode);
+		if(isValidSession(session)){
 			renewSession(session);
+			return userRepo.getById(session.getUserId());
 		}
-		return isValid;
-	}
-	@Override
-	public Session retrieveSession(String authCode) {
-		Session session = sessionRepo.getByAuthCode(authCode);
-		if(!isValidSession(session)){
-			session = null;
-		}
-		return session;
-	}
-	@Override
-	public Session retrieveSession(CustomUser user) {
-		// set it to null - if we don't find one, we'll return this null
-		Session lastSession = null;
-		// find the session with the latest expiration date
-		for(Session session : sessionRepo.getByUser(user)){
-			if(lastSession == null || session.getExpiration().after(lastSession.getExpiration())){
-				lastSession = session;
-			}
-		}
-		// if we found one, but it is not valid, return null
-		if(lastSession != null && !isValidSession(lastSession)){
-			lastSession = null;
-		}
-		return lastSession;
+		return null;
 	}
 
 }

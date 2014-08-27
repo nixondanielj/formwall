@@ -6,6 +6,6 @@ public interface IFormService {
 
 	void persist(FormFormModel model) throws PermissionsException, PaywallException;
 
-	FormFormModel getById(String id);
+	FormFormModel getFMById(String id) throws PermissionsException;
 	
 }

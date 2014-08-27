@@ -33,7 +33,7 @@ public class CustomUserService implements ICustomUserService {
 	}
 
 	@Override
-	public CustomUser registerByEmail(String email)
+	public CustomUser registerCustom(String email)
 			throws UnsupportedEncodingException, MessagingException, DuplicateException {
 		if(alreadyExists(email)){
 			throw new DuplicateException();
@@ -49,6 +49,17 @@ public class CustomUserService implements ICustomUserService {
 			// TODO roll back user
 		}
 		return user;
+	}
+
+	@Override
+	public CustomUser registerGoogle(String email) {
+		if(alreadyExists(email)){
+			return userRepo.getByEmail(email);
+		} else {
+			CustomUser user = new CustomUser();
+			user.setEmail(email);
+			return userRepo.create(user);
+		}
 	}
 
 }

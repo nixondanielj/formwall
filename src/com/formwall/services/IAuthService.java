@@ -2,12 +2,11 @@ package com.formwall.services;
 
 import com.formwall.entities.CustomUser;
 import com.formwall.entities.Form;
-import com.formwall.entities.Session;
 
 public interface IAuthService {
 	public void addRoleToUser(CustomUser user, Roles role);
 
-	public Session authenticate(Credentials credentials);
+	public boolean authenticate(Credentials credentials);
 
 	public String generatePassword();
 
@@ -18,4 +17,6 @@ public interface IAuthService {
 	public boolean canHaveMoreForms();
 
 	public void addPermission(Form form, PermissionLevels permission);
+
+	public boolean authenticate(AuthenticationRequest request);
 }
