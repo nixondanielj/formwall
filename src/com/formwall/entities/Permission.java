@@ -1,10 +1,9 @@
 package com.formwall.entities;
 
-import com.formwall.services.PermissionLevels;
 
 public class Permission {
 	private String id;
-	private PermissionLevels level;
+	private String level;
 	private String userId;
 	private String formId;
 	public String getId() {
@@ -13,10 +12,10 @@ public class Permission {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public PermissionLevels getLevel() {
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(PermissionLevels level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	public String getUserId() {
