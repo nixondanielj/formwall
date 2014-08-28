@@ -24,7 +24,7 @@ public class FormService implements IFormService {
 	/*
 	 * if form is new
 	 *   if user is free
-	 *     if exceeded max forms and not in valid trial
+	 *     if exceeded max forms
 	 *       throw PaywallException
 	 * else
 	 *   if permissions are not sufficient
