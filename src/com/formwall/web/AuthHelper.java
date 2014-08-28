@@ -4,7 +4,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import com.formwall.services.AuthenticationRequest;
+import com.formwall.web.models.AuthenticationRequest;
 import com.google.api.server.spi.auth.common.User;
 
 public class AuthHelper {

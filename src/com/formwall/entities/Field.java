@@ -1,19 +1,21 @@
 package com.formwall.entities;
 
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
 public class Field {
-	private String id;
+	@Id private Long id;
 	private String label;
 	private boolean required;
 	private String errorMessage;
 	private String requiredMessage;
 	
-	private String formId;
-	private String fieldTypeId;
-	public String getId() {
+	private Ref<Form> form;
+	private Ref<FieldType> fieldType;
+	public Long getId() {
 		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getLabel() {
 		return label;
@@ -39,16 +41,16 @@ public class Field {
 	public void setRequiredMessage(String requiredMessage) {
 		this.requiredMessage = requiredMessage;
 	}
-	public String getFormId() {
-		return formId;
+	public Form getForm() {
+		return form.get();
 	}
-	public void setFormId(String formId) {
-		this.formId = formId;
+	public void setForm(Form form) {
+		this.form = Ref.create(form);
 	}
-	public String getFieldTypeId() {
-		return fieldTypeId;
+	public FieldType getFieldType() {
+		return fieldType.get();
 	}
-	public void setFieldTypeId(String fieldTypeId) {
-		this.fieldTypeId = fieldTypeId;
+	public void setFieldType(FieldType fieldType) {
+		this.fieldType = Ref.create(fieldType);
 	}
 }

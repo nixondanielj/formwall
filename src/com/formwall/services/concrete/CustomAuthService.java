@@ -8,16 +8,15 @@ import javax.inject.Inject;
 import com.formwall.entities.CustomUser;
 import com.formwall.entities.Form;
 import com.formwall.entities.Permission;
-import com.formwall.repositories.IFormRepository;
 import com.formwall.repositories.IPermissionRepository;
 import com.formwall.repositories.IUserRepository;
-import com.formwall.services.AuthenticationRequest;
 import com.formwall.services.Credentials;
 import com.formwall.services.IAuthService;
 import com.formwall.services.ICustomUserService;
 import com.formwall.services.ISessionService;
 import com.formwall.services.PermissionLevels;
 import com.formwall.services.Roles;
+import com.formwall.web.models.AuthenticationRequest;
 
 public class CustomAuthService implements IAuthService {
 
@@ -25,17 +24,15 @@ public class CustomAuthService implements IAuthService {
 	private ISessionService sessionSvc;
 	private CustomUser currentUser;
 	private IPermissionRepository permissionRepo;
-	private IFormRepository formRepo;
 	private ICustomUserService userSvc;
 
 	@Inject
 	public CustomAuthService(ICustomUserService userSvc,
 			IUserRepository userRepo, ISessionService sessionSvc,
-			IPermissionRepository permissionRepo, IFormRepository formRepo) {
+			IPermissionRepository permissionRepo) {
 		this.userRepo = userRepo;
 		this.sessionSvc = sessionSvc;
 		this.permissionRepo = permissionRepo;
-		this.formRepo = formRepo;
 		this.userSvc = userSvc;
 	}
 
@@ -76,7 +73,7 @@ public class CustomAuthService implements IAuthService {
 			List<Permission> permissions = permissionRepo.getByUser(this
 					.getCurrentUser());
 			for (Permission p : permissions) {
-				if (p.getFormId() == form.getId()) {
+				if (p.getForm().getId() == form.getId()) {
 					PermissionLevels fp = PermissionLevels
 							.valueOf(p.getLevel());
 					if (fp == permission || fp == PermissionLevels.Owner) {
@@ -89,18 +86,32 @@ public class CustomAuthService implements IAuthService {
 	}
 
 	@Override
-	public boolean canHaveMoreForms() {
+	public boolean hasMaxForms() {
 		// TODO need to put some real thought into this one...
-		return this.getCurrentUser() != null
-				&& formRepo.getActiveByUser(getCurrentUser()).size() < 3;
+		boolean canHave = false;
+		if(getCurrentUser() != null){
+			int currentForms = 0;
+			for(Permission permission : permissionRepo.getByUser(getCurrentUser())){
+				PermissionLevels pl = PermissionLevels.valueOf(permission.getLevel());
+				if(pl == PermissionLevels.Editor || pl == PermissionLevels.Owner){
+					currentForms++;
+				}
+			}
+			return currentForms <= 3;
+		}
+		return canHave;
 	}
 
 	@Override
 	public void addPermission(Form form, PermissionLevels permissionLevel) {
 		if (getCurrentUser() != null && !hasPermission(form, permissionLevel)) {
+			Permission oldPermission = permissionRepo.get(form, getCurrentUser());
+			if(oldPermission != null){
+				permissionRepo.delete(oldPermission);
+			}
 			Permission permission = new Permission();
-			permission.setFormId(form.getId());
-			permission.setUserId(this.getCurrentUser().getId());
+			permission.setForm(form);
+			permission.setUser(this.getCurrentUser());
 			permission.setLevel(permissionLevel.name());
 			permissionRepo.persist(permission);
 		}

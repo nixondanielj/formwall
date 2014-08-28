@@ -8,6 +8,7 @@ import com.formwall.web.FormEndpoint;
 import com.formwall.web.SeedEndpoint;
 import com.formwall.web.UserEndpoint;
 import com.google.api.server.spi.guice.GuiceSystemServiceServletModule;
+import com.googlecode.objectify.ObjectifyFilter;
 
 public class GuiceSSSModule extends GuiceSystemServiceServletModule {
 	@Override
@@ -19,5 +20,6 @@ public class GuiceSSSModule extends GuiceSystemServiceServletModule {
 		serviceClasses.add(SeedEndpoint.class);
 		serviceClasses.add(FormEndpoint.class);
 		this.serveGuiceSystemServiceServlet("/_ah/spi/*", serviceClasses);
+		filter("/*").through(ObjectifyFilter.class);
 	}
 }

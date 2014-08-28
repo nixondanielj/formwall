@@ -1,8 +1,11 @@
 package com.formwall.entities;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
+@Entity
 public class FieldType {
-	private String id;
+	@Id private Long id;
 	private String htmlType;
 	private String defaultRegexValidator;
 	private String defaultRequiredMessage;
@@ -12,7 +15,7 @@ public class FieldType {
 
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 	public String getHtmlType() {
@@ -20,10 +23,6 @@ public class FieldType {
 	}
 	public String getDefaultRegexValidator() {
 		return defaultRegexValidator;
-	}
-
-	public void setId(String key) {
-		this.id = key;
 	}
 
 	public void setHtmlType(String htmlType) {

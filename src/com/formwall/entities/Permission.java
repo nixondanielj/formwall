@@ -1,16 +1,17 @@
 package com.formwall.entities;
 
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
+@Entity
 public class Permission {
-	private String id;
+	@Id private Long id;
 	private String level;
-	private String userId;
-	private String formId;
-	public String getId() {
+	private Ref<CustomUser> user;
+	private Ref<Form> form;
+	public Long getId() {
 		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getLevel() {
 		return level;
@@ -18,17 +19,17 @@ public class Permission {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	public String getUserId() {
-		return userId;
+	public CustomUser getUser() {
+		return user.get();
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser(CustomUser user) {
+		this.user = Ref.create(user);
 	}
-	public String getFormId() {
-		return formId;
+	public Form getForm() {
+		return form.get();
 	}
-	public void setFormId(String formId) {
-		this.formId = formId;
+	public void setForm(Form form) {
+		this.form = Ref.create(form);
 	}
 	
 	

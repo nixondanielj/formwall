@@ -3,19 +3,17 @@ package com.formwall.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.formwall.services.Roles;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
-
+@Entity
 public class CustomUser {
-	private String id;
+	@Id private Long id;
 	private String email;
 	private String password;
 	private List<String> roles;
-	public String getId() {
+	public Long getId() {
 		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getEmail() {
 		return email;
@@ -39,7 +37,4 @@ public class CustomUser {
 		this.roles = roles;
 	}
 	
-	public boolean hasRole(Roles role){
-		return getRoles().contains(role.name());
-	}
 }

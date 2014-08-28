@@ -1,4 +1,4 @@
-package com.formwall.services;
+package com.formwall.web.models;
 
 public class AuthenticationRequest {
 	public String email;

@@ -1,8 +1,11 @@
 package com.formwall.entities;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
+@Entity
 public class Email {
-	private String id;
+	@Id private Long id;
 	private String name;
 	private String from;
 	private String to;
@@ -12,12 +15,8 @@ public class Email {
 	private String message;
 	private String senderTitle;
 
-	public String getId() {
+	public Long getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getFrom() {

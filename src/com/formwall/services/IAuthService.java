@@ -2,6 +2,7 @@ package com.formwall.services;
 
 import com.formwall.entities.CustomUser;
 import com.formwall.entities.Form;
+import com.formwall.web.models.AuthenticationRequest;
 
 public interface IAuthService {
 	public void addRoleToUser(CustomUser user, Roles role);
@@ -14,7 +15,7 @@ public interface IAuthService {
 
 	public boolean hasPermission(Form form, PermissionLevels permission);
 
-	public boolean canHaveMoreForms();
+	public boolean hasMaxForms();
 
 	public void addPermission(Form form, PermissionLevels permission);
 

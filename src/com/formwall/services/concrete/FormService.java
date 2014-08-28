@@ -1,13 +1,7 @@
 package com.formwall.services.concrete;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import com.formwall.entities.Field;
-import com.formwall.entities.Form;
-import com.formwall.repositories.IFieldRepository;
 import com.formwall.repositories.IFormRepository;
 import com.formwall.services.IAuthService;
 import com.formwall.services.IFormService;
@@ -20,13 +14,11 @@ public class FormService implements IFormService {
 
 	private IAuthService authSvc;
 	private IFormRepository formRepo;
-	private IFieldRepository fieldRepo;
 
 	@Inject
-	public FormService(IFormRepository formRepo, IAuthService authSvc, IFieldRepository fieldRepo){
+	public FormService(IFormRepository formRepo, IAuthService authSvc){
 		this.formRepo = formRepo;
 		this.authSvc = authSvc;
-		this.fieldRepo = fieldRepo;
 	}
 	
 	/*
@@ -42,30 +34,20 @@ public class FormService implements IFormService {
 	@Override
 	public void persist(FormFormModel model) throws PermissionsException, PaywallException {
 		if(model.form.getId() == null){
-			if(!authSvc.canHaveMoreForms()){
+			if(authSvc.hasMaxForms()){
 				throw new PaywallException();
 			}
 		} else if (!authSvc.hasPermission(model.form, PermissionLevels.Editor)){
 			throw new PermissionsException();
 		}
-		model.form = formRepo.persist(model.form, authSvc.getCurrentUser());
+		formRepo.persist(model.form);
 		try{
 			authSvc.addPermission(model.form, PermissionLevels.Owner);
-			addFields(model.form, (Field[]) model.fields.toArray());
+			model.form.addFields(model.fields);
 		} catch (Exception e){
 			// TODO rollback form, throw error
 		}
 		
-	}
-
-	public void addFields(Form form, Field... fields) {
-		List<String> fieldIds = new ArrayList<String>();
-		for(Field field : fields){
-			fieldRepo.persist(field, form);
-			fieldIds.add(field.getId());
-		}
-		form.setFieldIds(fieldIds);
-		formRepo.persist(form);
 	}
 
 	@Override

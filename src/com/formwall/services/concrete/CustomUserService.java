@@ -41,7 +41,7 @@ public class CustomUserService implements ICustomUserService {
 		CustomUser user = new CustomUser();
 		user.setEmail(email);
 		user.setPassword(authSvc.generatePassword());
-		user = userRepo.create(user);
+		userRepo.persist(user);
 		try {
 			authSvc.addRoleToUser(user, Roles.User);
 			mailSvc.sendWelcomeEmail(user);
@@ -58,7 +58,8 @@ public class CustomUserService implements ICustomUserService {
 		} else {
 			CustomUser user = new CustomUser();
 			user.setEmail(email);
-			return userRepo.create(user);
+			userRepo.persist(user);
+			return user;
 		}
 	}
 

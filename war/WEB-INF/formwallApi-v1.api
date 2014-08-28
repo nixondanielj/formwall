@@ -126,14 +126,37 @@
         "type" : "object",
         "properties" : {
           "id" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "int64"
           },
-          "userId" : {
-            "type" : "string"
+          "user" : {
+            "$ref" : "CustomUser"
           },
           "expiration" : {
             "type" : "string",
             "format" : "date-time"
+          }
+        }
+      },
+      "CustomUser" : {
+        "id" : "CustomUser",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "roles" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         }
       },
@@ -142,7 +165,8 @@
         "type" : "object",
         "properties" : {
           "id" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "int64"
           },
           "htmlType" : {
             "type" : "string"
@@ -190,16 +214,20 @@
         "type" : "object",
         "properties" : {
           "id" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "int64"
           },
           "title" : {
             "type" : "string"
           },
-          "fieldIds" : {
+          "fields" : {
             "type" : "array",
             "items" : {
-              "type" : "string"
+              "$ref" : "Field"
             }
+          },
+          "active" : {
+            "type" : "boolean"
           }
         }
       },
@@ -208,7 +236,8 @@
         "type" : "object",
         "properties" : {
           "id" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "int64"
           },
           "label" : {
             "type" : "string"
@@ -222,11 +251,11 @@
           "requiredMessage" : {
             "type" : "string"
           },
-          "formId" : {
-            "type" : "string"
+          "form" : {
+            "$ref" : "Form"
           },
-          "fieldTypeId" : {
-            "type" : "string"
+          "fieldType" : {
+            "$ref" : "FieldType"
           }
         }
       }
