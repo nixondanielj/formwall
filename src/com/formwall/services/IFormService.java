@@ -1,11 +1,10 @@
 package com.formwall.services;
 
-import com.formwall.web.models.FormFormModel;
 
 public interface IFormService {
 
-	void persist(FormFormModel model) throws PermissionsException, PaywallException;
+	void persist(FormFM model) throws PermissionsException, PaywallException;
 
-	FormFormModel getFMById(String id) throws PermissionsException;
+	FormFM getFMById(Long id) throws PermissionsException;
 	
 }

@@ -98,7 +98,7 @@
       }
     },
     "formwallApi.formEndpoint.get" : {
-      "path" : "formformmodel/{id}",
+      "path" : "formfm/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -108,7 +108,7 @@
       "request" : {
         "parameters" : {
           "id" : {
-            "type" : "string",
+            "type" : "int64",
             "required" : true
           }
         },
@@ -142,10 +142,6 @@
         "id" : "CustomUser",
         "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
           "email" : {
             "type" : "string"
           },
@@ -194,48 +190,43 @@
           }
         }
       },
-      "FormFormModel" : {
-        "id" : "FormFormModel",
+      "FormFM" : {
+        "id" : "FormFM",
         "type" : "object",
         "properties" : {
-          "form" : {
-            "$ref" : "Form"
+          "availableFieldTypes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "FieldType"
+            }
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "active" : {
+            "type" : "boolean"
           },
           "fields" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Field"
+              "$ref" : "FieldFM"
             }
           }
         }
       },
-      "Form" : {
-        "id" : "Form",
+      "FieldFM" : {
+        "id" : "FieldFM",
         "type" : "object",
         "properties" : {
           "id" : {
             "type" : "string",
             "format" : "int64"
           },
-          "title" : {
-            "type" : "string"
-          },
-          "fields" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Field"
-            }
-          },
-          "active" : {
-            "type" : "boolean"
-          }
-        }
-      },
-      "Field" : {
-        "id" : "Field",
-        "type" : "object",
-        "properties" : {
-          "id" : {
+          "fieldTypeId" : {
             "type" : "string",
             "format" : "int64"
           },
@@ -250,12 +241,6 @@
           },
           "requiredMessage" : {
             "type" : "string"
-          },
-          "form" : {
-            "$ref" : "Form"
-          },
-          "fieldType" : {
-            "$ref" : "FieldType"
           }
         }
       }
@@ -275,12 +260,12 @@
       },
       "com.formwall.web.FormEndpoint.postForm" : {
         "request" : {
-          "$ref" : "FormFormModel"
+          "$ref" : "FormFM"
         }
       },
       "com.formwall.web.FormEndpoint.get" : {
         "response" : {
-          "$ref" : "FormFormModel"
+          "$ref" : "FormFM"
         }
       }
     }

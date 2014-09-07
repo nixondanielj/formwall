@@ -16,5 +16,10 @@ public class FieldTypeRepository extends BaseRepository implements IFieldTypeRep
 	public List<FieldType> getAll(){
 		return ofy().load().type(FieldType.class).list();
 	}
+
+	@Override
+	public FieldType getById(Long fieldTypeId) {
+		return ofy().load().type(FieldType.class).id(fieldTypeId).now();
+	}
 	
 }

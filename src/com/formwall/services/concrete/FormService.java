@@ -1,24 +1,38 @@
 package com.formwall.services.concrete;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import com.formwall.entities.Field;
+import com.formwall.entities.FieldType;
+import com.formwall.entities.Form;
+import com.formwall.repositories.IFieldRepository;
+import com.formwall.repositories.IFieldTypeRepository;
 import com.formwall.repositories.IFormRepository;
+import com.formwall.services.FieldFM;
+import com.formwall.services.FormFM;
 import com.formwall.services.IAuthService;
 import com.formwall.services.IFormService;
 import com.formwall.services.PaywallException;
 import com.formwall.services.PermissionLevels;
 import com.formwall.services.PermissionsException;
-import com.formwall.web.models.FormFormModel;
+import com.google.inject.Provider;
 
 public class FormService implements IFormService {
 
-	private IAuthService authSvc;
+	private Provider<IAuthService> authSvcPrvdr;
 	private IFormRepository formRepo;
+	private IFieldTypeRepository fieldTypeRepo;
+	private IFieldRepository fieldRepo;
 
 	@Inject
-	public FormService(IFormRepository formRepo, IAuthService authSvc){
+	public FormService(IFormRepository formRepo, Provider<IAuthService> authSvcPrvdr, IFieldTypeRepository fieldTypeRepo, IFieldRepository fieldRepo){
 		this.formRepo = formRepo;
-		this.authSvc = authSvc;
+		this.authSvcPrvdr = authSvcPrvdr;
+		this.fieldTypeRepo = fieldTypeRepo;
+		this.fieldRepo = fieldRepo;
 	}
 	
 	/*
@@ -32,28 +46,71 @@ public class FormService implements IFormService {
 	 * persist form
 	 */
 	@Override
-	public void persist(FormFormModel model) throws PermissionsException, PaywallException {
-		if(model.form.getId() == null){
-			if(authSvc.hasMaxForms()){
+	public void persist(FormFM model) throws PermissionsException, PaywallException {
+		Form form;
+		if(model.getId() == null){
+			if(authSvcPrvdr.get().hasMaxForms()){
 				throw new PaywallException();
 			}
-		} else if (!authSvc.hasPermission(model.form, PermissionLevels.Editor)){
-			throw new PermissionsException();
+			form = new Form();
+		} else {
+			form = formRepo.getById(model.getId());
+			if (!authSvcPrvdr.get().hasPermission(form, PermissionLevels.Editor)){
+				throw new PermissionsException();
+			}
 		}
-		formRepo.persist(model.form);
-		try{
-			authSvc.addPermission(model.form, PermissionLevels.Owner);
-			model.form.addFields(model.fields);
-		} catch (Exception e){
-			// TODO rollback form, throw error
+		form.setActive(model.isActive());
+		form.setTitle(model.getTitle());
+		List<Field> fields = new ArrayList<Field>();
+		for(FieldFM fm : model.getFields()){
+			fields.add(map(fm));
 		}
-		
+		fieldRepo.persist(fields);
+		form.addFields(fields);
+		formRepo.persist(form);
+		authSvcPrvdr.get().addPermission(form, PermissionLevels.Owner);
+	}
+
+	private Field map(FieldFM fm) {
+		FieldType type = fieldTypeRepo.getById(fm.getFieldTypeId());
+		Field field = new Field();
+		field.setId(fm.getId());
+		field.setFieldType(type);
+		field.setErrorMessage(fm.getErrorMessage());
+		field.setLabel(fm.getLabel());
+		field.setRequired(fm.isRequired());
+		field.setRequiredMessage(fm.getRequiredMessage());
+		return field;
 	}
 
 	@Override
-	public FormFormModel getFMById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public FormFM getFMById(Long id) throws PermissionsException {
+		FormFM fm = new FormFM();
+		fm.setAvailableFieldTypes(fieldTypeRepo.getAll());
+		Form form = formRepo.getById(id);
+		if(form != null){
+			if(!authSvcPrvdr.get().hasPermission(form, PermissionLevels.Editor)){
+				throw new PermissionsException();
+			}
+			fm.setActive(form.isActive());
+			fm.setId(id);
+			fm.setTitle(form.getTitle());
+			for(Field field : form.getFields()){
+				fm.getFields().add(map(field));
+			}
+		}
+		return fm;
+	}
+
+	private FieldFM map(Field field) {
+		FieldFM fm = new FieldFM();
+		fm.setErrorMessage(field.getErrorMessage());
+		fm.setFieldTypeId(field.getFieldType().getId());
+		fm.setId(field.getId());
+		fm.setLabel(field.getLabel());
+		fm.setRequired(field.isRequired());
+		fm.setRequiredMessage(field.getRequiredMessage());
+		return fm;
 	}
 
 }

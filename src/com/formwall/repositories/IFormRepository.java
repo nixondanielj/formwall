@@ -6,4 +6,6 @@ public interface IFormRepository {
 
 	public void persist(Form form);
 
+	public Form getById(Long id);
+
 }

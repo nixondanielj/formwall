@@ -13,6 +13,9 @@ public class Form {
 	private String title;
 	private List<Ref<Field>> fields;
 	private boolean active;
+	public Form(){
+		fields = new ArrayList<Ref<Field>>();
+	}
 	public Long getId() {
 		return id;
 	}
@@ -31,7 +34,7 @@ public class Form {
 	}
 	public void addFields(List<Field> fields2) {
 		for(Field field : fields2){
-			this.fields.add(Ref.create(field));
+			addField(field);
 		}
 	}
 	public boolean isActive() {
@@ -39,6 +42,9 @@ public class Form {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public void addField(Field field) {
+		this.fields.add(Ref.create(field));
 	}
 	
 }

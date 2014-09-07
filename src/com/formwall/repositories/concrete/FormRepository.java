@@ -10,4 +10,9 @@ public class FormRepository extends BaseRepository implements IFormRepository {
 	public void persist(Form form){
 		ofy().save().entity(form).now();
 	}
+
+	@Override
+	public Form getById(Long id) {
+		return ofy().load().type(Form.class).id(id).now();
+	}
 }

@@ -10,7 +10,7 @@ public interface IPermissionRepository {
 
 	List<Permission> getByUser(CustomUser currentUser);
 
-	Permission persist(Permission permission);
+	void persist(Permission permission);
 
 	void delete(Permission oldPermission);
 

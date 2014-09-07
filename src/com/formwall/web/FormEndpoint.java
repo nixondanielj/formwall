@@ -3,31 +3,32 @@ package com.formwall.web;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import com.formwall.services.FormFM;
 import com.formwall.services.IAuthService;
 import com.formwall.services.IFormService;
 import com.formwall.services.PaywallException;
 import com.formwall.services.PermissionsException;
-import com.formwall.web.models.FormFormModel;
 import com.google.api.server.spi.auth.common.User;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.inject.Provider;
 
 @Api(name = "formwallApi", version = "v1")
 public class FormEndpoint {
 
 	private IFormService formSvc;
-	private IAuthService authSvc;
+	private Provider<IAuthService> authSvcPrvdr;
 
 	@Inject
-	public FormEndpoint(IFormService formSvc, IAuthService authSvc) {
+	public FormEndpoint(IFormService formSvc, Provider<IAuthService> authSvcPrvdr) {
 		this.formSvc = formSvc;
-		this.authSvc = authSvc;
+		this.authSvcPrvdr = authSvcPrvdr;
 	}
 
-	public void postForm(FormFormModel model, User user, HttpServletRequest req)
+	public void postForm(FormFM model, User user, HttpServletRequest req)
 			throws UnauthorizedException {
-		if (authSvc.authenticate(AuthHelper.getAuthReq(user, req))) {
+		if (authSvcPrvdr.get().authenticate(AuthHelper.getAuthReq(user, req))) {
 			try {
 				formSvc.persist(model);
 			} catch (PermissionsException e) {
@@ -42,9 +43,9 @@ public class FormEndpoint {
 		}
 	}
 
-	public FormFormModel get(@Named("id") String id, User user,
+	public FormFM get(@Named("id") Long id, User user,
 			HttpServletRequest req) throws UnauthorizedException {
-		if (authSvc.authenticate(AuthHelper.getAuthReq(user, req))) {
+		if (authSvcPrvdr.get().authenticate(AuthHelper.getAuthReq(user, req))) {
 			try {
 				return formSvc.getFMById(id);
 			} catch (PermissionsException e) {

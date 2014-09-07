@@ -1,4 +1,15 @@
-﻿<h2>Registration</h2>
+﻿
+<carousel interval="carouselInterval">
+    <slide ng-repeat="slide in slides" active="slide.active">
+        <img ng-src="{{slide.img}}" style="margin:auto;" />
+        <div class="carousel-caption">
+            <h4>{{slide.header}}</h4>
+            <p>{{slide.body}}</p>
+        </div>
+    </slide>
+</carousel>
+
+<h2>Registration</h2>
 <form ng-submit="register()">
     <input type="email" ng-model="email" required placeholder="Email" />
 </form>

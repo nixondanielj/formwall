@@ -8,4 +8,6 @@ public interface IFieldTypeRepository {
 
 	public abstract List<FieldType> getAll();
 
+	public abstract FieldType getById(Long fieldTypeId);
+
 }

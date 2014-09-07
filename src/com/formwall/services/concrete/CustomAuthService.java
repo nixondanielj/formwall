@@ -2,6 +2,7 @@ package com.formwall.services.concrete;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -25,11 +26,13 @@ public class CustomAuthService implements IAuthService {
 	private CustomUser currentUser;
 	private IPermissionRepository permissionRepo;
 	private ICustomUserService userSvc;
+	private final static Logger logger = Logger.getLogger(CustomAuthService.class.getName());
 
 	@Inject
 	public CustomAuthService(ICustomUserService userSvc,
 			IUserRepository userRepo, ISessionService sessionSvc,
 			IPermissionRepository permissionRepo) {
+		logger.info("Creating auth service");
 		this.userRepo = userRepo;
 		this.sessionSvc = sessionSvc;
 		this.permissionRepo = permissionRepo;
@@ -97,7 +100,7 @@ public class CustomAuthService implements IAuthService {
 					currentForms++;
 				}
 			}
-			return currentForms <= 3;
+			return currentForms >= 3;
 		}
 		return canHave;
 	}

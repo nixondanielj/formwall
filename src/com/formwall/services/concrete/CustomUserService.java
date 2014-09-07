@@ -12,19 +12,20 @@ import com.formwall.services.IAuthService;
 import com.formwall.services.ICustomUserService;
 import com.formwall.services.IMailService;
 import com.formwall.services.Roles;
+import com.google.inject.Provider;
 
 public class CustomUserService implements ICustomUserService {
 
 	private IMailService mailSvc;
 	private IUserRepository userRepo;
-	private IAuthService authSvc;
+	private Provider<IAuthService> authSvcPrvdr;
 
 	@Inject
 	public CustomUserService(IMailService mailSvc, IUserRepository userRepo,
-			IAuthService authSvc) {
+			Provider<IAuthService> authSvcPrvdr) {
 		this.mailSvc = mailSvc;
 		this.userRepo = userRepo;
-		this.authSvc = authSvc;
+		this.authSvcPrvdr = authSvcPrvdr;
 	}
 
 	@Override
@@ -40,10 +41,10 @@ public class CustomUserService implements ICustomUserService {
 		}
 		CustomUser user = new CustomUser();
 		user.setEmail(email);
-		user.setPassword(authSvc.generatePassword());
+		user.setPassword(authSvcPrvdr.get().generatePassword());
 		userRepo.persist(user);
 		try {
-			authSvc.addRoleToUser(user, Roles.User);
+			authSvcPrvdr.get().addRoleToUser(user, Roles.User);
 			mailSvc.sendWelcomeEmail(user);
 		} catch (Exception e) {
 			// TODO roll back user
@@ -59,6 +60,7 @@ public class CustomUserService implements ICustomUserService {
 			CustomUser user = new CustomUser();
 			user.setEmail(email);
 			userRepo.persist(user);
+			authSvcPrvdr.get().addRoleToUser(user, Roles.User);
 			return user;
 		}
 	}

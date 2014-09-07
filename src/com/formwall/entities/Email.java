@@ -5,8 +5,7 @@ import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class Email {
-	@Id private Long id;
-	private String name;
+	@Id private String id;
 	private String from;
 	private String to;
 	private String cc;
@@ -14,10 +13,6 @@ public class Email {
 	private String subject;
 	private String message;
 	private String senderTitle;
-
-	public Long getId() {
-		return id;
-	}
 
 	public String getFrom() {
 		return from;
@@ -55,12 +50,8 @@ public class Email {
 		this.message = message;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public String getId() {
+		return id;
 	}
 
 	public String getSenderTitle() {
@@ -73,6 +64,10 @@ public class Email {
 
 	public void setTo(String to) {
 		this.to = to;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

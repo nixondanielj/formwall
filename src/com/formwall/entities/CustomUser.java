@@ -8,13 +8,9 @@ import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class CustomUser {
-	@Id private Long id;
-	private String email;
+	@Id private String email;
 	private String password;
 	private List<String> roles;
-	public Long getId() {
-		return id;
-	}
 	public String getEmail() {
 		return email;
 	}

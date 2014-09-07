@@ -20,6 +20,6 @@ public class GuiceSSSModule extends GuiceSystemServiceServletModule {
 		serviceClasses.add(SeedEndpoint.class);
 		serviceClasses.add(FormEndpoint.class);
 		this.serveGuiceSystemServiceServlet("/_ah/spi/*", serviceClasses);
-		filter("/*").through(ObjectifyFilter.class);
+		filter("/_ah/spi/*").through(ObjectifyFilter.class);
 	}
 }

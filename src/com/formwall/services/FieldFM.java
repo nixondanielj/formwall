@@ -1,20 +1,23 @@
-package com.formwall.entities;
+package com.formwall.services;
 
-import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-
-@Entity
-public class Field {
-	@Id private Long id;
+public class FieldFM {
+	private Long id;
+	private Long fieldTypeId;
 	private String label;
 	private boolean required;
 	private String errorMessage;
 	private String requiredMessage;
-	
-	private Ref<FieldType> fieldType;
 	public Long getId() {
 		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getFieldTypeId() {
+		return fieldTypeId;
+	}
+	public void setFieldTypeId(Long fieldTypeId) {
+		this.fieldTypeId = fieldTypeId;
 	}
 	public String getLabel() {
 		return label;
@@ -39,14 +42,5 @@ public class Field {
 	}
 	public void setRequiredMessage(String requiredMessage) {
 		this.requiredMessage = requiredMessage;
-	}
-	public FieldType getFieldType() {
-		return fieldType.get();
-	}
-	public void setFieldType(FieldType fieldType) {
-		this.fieldType = Ref.create(fieldType);
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 }
