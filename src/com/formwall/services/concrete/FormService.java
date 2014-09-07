@@ -55,7 +55,7 @@ public class FormService implements IFormService {
 			form = new Form();
 		} else {
 			form = formRepo.getById(model.getId());
-			if (!authSvcPrvdr.get().hasPermission(form, PermissionLevels.Editor)){
+			if (!authSvcPrvdr.get().canEdit(form)){
 				throw new PermissionsException();
 			}
 		}
@@ -89,7 +89,7 @@ public class FormService implements IFormService {
 		fm.setAvailableFieldTypes(fieldTypeRepo.getAll());
 		Form form = formRepo.getById(id);
 		if(form != null){
-			if(!authSvcPrvdr.get().hasPermission(form, PermissionLevels.Editor)){
+			if(!authSvcPrvdr.get().canEdit(form)){
 				throw new PermissionsException();
 			}
 			fm.setActive(form.isActive());

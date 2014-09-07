@@ -28,9 +28,9 @@ public class PermissionRepository implements IPermissionRepository {
 	}
 
 	@Override
-	public Permission get(Form form, CustomUser currentUser) {
+	public List<Permission> get(Form form, CustomUser currentUser) {
 		return ofy().load().type(Permission.class).filter("form", form)
-				.filter("user", currentUser).first().now();
+				.filter("user", currentUser).list();
 	}
 
 }

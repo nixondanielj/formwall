@@ -14,6 +14,6 @@ public interface IPermissionRepository {
 
 	void delete(Permission oldPermission);
 
-	Permission get(Form form, CustomUser currentUser);
+	List<Permission> get(Form form, CustomUser currentUser);
 
 }

@@ -73,8 +73,7 @@ public class CustomAuthService implements IAuthService {
 	@Override
 	public boolean hasPermission(Form form, PermissionLevels permission) {
 		if (this.getCurrentUser() != null) {
-			List<Permission> permissions = permissionRepo.getByUser(this
-					.getCurrentUser());
+			List<Permission> permissions = permissionRepo.get(form, getCurrentUser());
 			for (Permission p : permissions) {
 				if (p.getForm().getId() == form.getId()) {
 					PermissionLevels fp = PermissionLevels
@@ -109,10 +108,6 @@ public class CustomAuthService implements IAuthService {
 	@Override
 	public void addPermission(Form form, PermissionLevels permissionLevel) {
 		if (getCurrentUser() != null && !hasPermission(form, permissionLevel)) {
-			Permission oldPermission = permissionRepo.get(form, getCurrentUser());
-			if(oldPermission != null){
-				permissionRepo.delete(oldPermission);
-			}
 			Permission permission = new Permission();
 			permission.setForm(form);
 			permission.setUser(this.getCurrentUser());
