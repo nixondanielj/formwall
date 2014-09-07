@@ -20,4 +20,12 @@ public interface IAuthService {
 	public void addPermission(Form form, PermissionLevels permission);
 
 	public boolean authenticate(AuthenticationRequest request);
+	
+	public boolean isOwner(Form form);
+	
+	public boolean canEdit(Form form);
+	
+	public boolean canViewReport(Form form);
+	
+	public boolean canViewData(Form form);
 }

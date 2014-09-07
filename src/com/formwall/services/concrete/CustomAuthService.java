@@ -79,12 +79,13 @@ public class CustomAuthService implements IAuthService {
 				if (p.getForm().getId() == form.getId()) {
 					PermissionLevels fp = PermissionLevels
 							.valueOf(p.getLevel());
-					if (fp == permission || fp == PermissionLevels.Owner) {
+					if (fp == permission) {
 						return true;
 					}
 				}
 			}
 		}
+		// returns false if we did not find the permission
 		return false;
 	}
 
@@ -134,4 +135,24 @@ public class CustomAuthService implements IAuthService {
 		return getCurrentUser() != null;
 	}
 
+	@Override
+	public boolean isOwner(Form form) {
+		return hasPermission(form, PermissionLevels.Owner);
+	}
+
+	@Override
+	public boolean canEdit(Form form) {
+		return hasPermission(form, PermissionLevels.Editor) || isOwner(form);
+	}
+
+	@Override
+	public boolean canViewReport(Form form) {
+		return hasPermission(form, PermissionLevels.AggregateData) || isOwner(form);
+	}
+
+	@Override
+	public boolean canViewData(Form form) {
+		return hasPermission(form, PermissionLevels.RawData) || isOwner(form);
+	}
+	
 }
