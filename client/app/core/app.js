@@ -1,6 +1,6 @@
 ﻿var formwallSvcs = angular.module('formwallSvcs', []);
 var formwallCtrls = angular.module('formwallControllers', ['formwallSvcs']);
-var formwallApp = angular.module('formwall', ['ngRoute', 'formwallControllers']);
+var formwallApp = angular.module('formwall', ['ngRoute', 'formwallControllers', 'ui.bootstrap']);
 
 formwallApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
