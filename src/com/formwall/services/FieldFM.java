@@ -5,8 +5,7 @@ public class FieldFM {
 	private Long fieldTypeId;
 	private String label;
 	private boolean required;
-	private String errorMessage;
-	private String requiredMessage;
+	private String type;
 	public Long getId() {
 		return id;
 	}
@@ -31,16 +30,10 @@ public class FieldFM {
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getType() {
+		return type;
 	}
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-	public String getRequiredMessage() {
-		return requiredMessage;
-	}
-	public void setRequiredMessage(String requiredMessage) {
-		this.requiredMessage = requiredMessage;
+	public void setType(String type) {
+		this.type = type;
 	}
 }

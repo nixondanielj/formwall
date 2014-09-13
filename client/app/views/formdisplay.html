@@ -1,0 +1,12 @@
+﻿<h2>{{displayForm.title}}</h2>
+<form ng-submit="doNothing()">
+    <div ng-repeat="field in displayForm.fields">
+        <label>{{field.label}}</label>
+        <span ng-switch="field.type">
+            <input ng-switch-when="date" type="{{field.type}}" ng-required="field.required" ng-model="field.placeholder" />
+            <input ng-switch-when="color" type="{{field.type}}" ng-required="field.required" ng-model="field.placeholder" />
+            <input ng-switch-default type="{{field.type}}" ng-required="field.required" placeholder="{{field.placeholder}}" />
+        </span>
+    </div>
+    <button type="submit" class="btn btn-primary">{{displayForm.btnText || "Submit"}}</button>
+</form>

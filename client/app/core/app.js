@@ -10,11 +10,21 @@ formwallApp.config(['$routeProvider', function ($routeProvider) {
         }).when('/seed', {
             templateUrl: 'app/views/seed.html',
             controller: 'SeedCtrl'
+        }).when('/formbuilder/:formId?', {
+            templateUrl: '/app/views/formbuilder.html',
+            controller: 'FormbuilderCtrl'
         }).otherwise({
             redirectTo: '/'
         });
 }]);
 
+formwallApp
+  .directive('formDisplay', function () {
+      return {
+          restrict: "E",
+          templateUrl: '/app/views/formdisplay.html'
+      };
+  });
 
 
 

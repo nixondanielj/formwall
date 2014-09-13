@@ -236,10 +236,7 @@
           "required" : {
             "type" : "boolean"
           },
-          "errorMessage" : {
-            "type" : "string"
-          },
-          "requiredMessage" : {
+          "type" : {
             "type" : "string"
           }
         }

@@ -76,10 +76,8 @@ public class FormService implements IFormService {
 		Field field = new Field();
 		field.setId(fm.getId());
 		field.setFieldType(type);
-		field.setErrorMessage(fm.getErrorMessage());
 		field.setLabel(fm.getLabel());
 		field.setRequired(fm.isRequired());
-		field.setRequiredMessage(fm.getRequiredMessage());
 		return field;
 	}
 
@@ -104,12 +102,11 @@ public class FormService implements IFormService {
 
 	private FieldFM map(Field field) {
 		FieldFM fm = new FieldFM();
-		fm.setErrorMessage(field.getErrorMessage());
 		fm.setFieldTypeId(field.getFieldType().getId());
 		fm.setId(field.getId());
 		fm.setLabel(field.getLabel());
 		fm.setRequired(field.isRequired());
-		fm.setRequiredMessage(field.getRequiredMessage());
+		fm.setType(field.getFieldType().getHtmlType());
 		return fm;
 	}
 
