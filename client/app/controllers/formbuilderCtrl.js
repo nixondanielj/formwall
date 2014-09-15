@@ -1,11 +1,5 @@
 ﻿/// <reference path="../references.js" />
 formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams", "$timeout", function ($scope, $window, $routeParams, $timeout) {
-    $window.init = function () {
-        gapi.client.load('formwallApi', 'v1', function () {
-            $scope.is_backend_ready = true;
-            $scope.$apply();
-        }, root);
-    }
     $scope.form = {
         title: "demo form",
         availableFieldTypes: ['text', 'email', 'phone', 'zip', 'color', 'date'],

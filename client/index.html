@@ -13,30 +13,7 @@
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
 </head>
 <body>
-    <nav role="navigation">
-        <div class="container-fluid bg-default">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    FormWall
-                </div>
-                <div class="col-md-4">
-                    <tabset class="center-block" type="pills">
-                        <tab heading="Features"></tab>
-                        <tab heading="Pricing"></tab>
-                        <tab heading="Support"></tab>
-                        <tab heading="About Us"></tab>
-                    </tabset>
-                </div>
-                <div class="col-md-1 col-md-offset-1">
-                    <button ng-click="login()" class="btn btn-primary">Log In</button>
-                </div>
-                <div class="col-md-1">
-                    <button ng-click="register()" class="btn btn-success">Sign Up Free!</button>
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-        </div>
-    </nav>
+    <formwall-nav></formwall-nav>
     <article ng-view ng-show="is_backend_ready">
         <h2>Uh-oh... Something didn't load right</h2>
         <p>We may be experiencing technical issues, please try reloading the page or come back later.</p>
@@ -44,6 +21,10 @@
     <script src="app/services/authSvc.js"></script>
     <script src="app/controllers/homeCtrl.js"></script>
     <script src="app/controllers/seedCtrl.js"></script>
+    <script src="app/controllers/loginmodalCtrl.js"></script>
     <script src="app/controllers/formbuilderCtrl.js"></script>
+    <script src="app/directives/formdisplayDrctv.js"></script>
+    <script src="app/directives/formeditorDrctv.js"></script>
+    <script src="app/directives/formwallnavDrctv.js"></script>
 </body>
 </html>

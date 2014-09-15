@@ -3,11 +3,12 @@ package com.formwall.services;
 import com.formwall.entities.CustomUser;
 import com.formwall.entities.Form;
 import com.formwall.web.models.AuthenticationRequest;
+import com.formwall.web.models.SessionVM;
 
 public interface IAuthService {
 	public void addRoleToUser(CustomUser user, Roles role);
 
-	public boolean authenticate(Credentials credentials);
+	public SessionVM authenticate(Credentials credentials);
 
 	public String generatePassword();
 

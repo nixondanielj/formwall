@@ -1,0 +1,14 @@
+﻿<div class="formEditor">
+    <h2>{{form.title}}</h2>
+    <div ng-repeat="field in form.fields">
+        <input type="text" ng-model="field.label" placeholder="Label" />
+        <input type="{{field.type}}" ng-model="field.placeholder" placeholder="Placeholder" />
+        <select ng-model="field.type" ng-options="fieldType for fieldType in form.availableFieldTypes"></select>
+        <label>Required?</label><input type="checkbox" ng-model="field.required" />
+    </div>
+    <button ng-click="addField()">Add a Field</button>
+    <div>
+        <label>Button Text</label>
+        <input type="text" ng-model="form.btnText" />
+    </div>
+</div>

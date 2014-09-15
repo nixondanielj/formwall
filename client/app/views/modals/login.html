@@ -1,0 +1,21 @@
+﻿<div class="pull-left">
+    <form ng-submit="customSignin()">
+        <div>
+            <input type="email" ng-model="signinEmail" placeholder="Email" required/>
+        </div>
+        <div>
+            <input type="password" ng-model="password" placeholder="Password" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+</div>
+<div class="pull-left">
+    <form ng-submit="customRegister()">
+        <div>
+            <input type="email" ng-model="email" placeholder="Email" required/>
+        </div>
+        <button class="btn btn-success" type="submit">Register Now!</button>
+    </form>
+</div>
+<hr />
+<button class="btn btn-error" ng-click="googleLogin()">Sign in with Google!</button>

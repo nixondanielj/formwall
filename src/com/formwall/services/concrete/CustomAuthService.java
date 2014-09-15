@@ -18,6 +18,7 @@ import com.formwall.services.ISessionService;
 import com.formwall.services.PermissionLevels;
 import com.formwall.services.Roles;
 import com.formwall.web.models.AuthenticationRequest;
+import com.formwall.web.models.SessionVM;
 
 public class CustomAuthService implements IAuthService {
 
@@ -48,15 +49,16 @@ public class CustomAuthService implements IAuthService {
 	}
 
 	@Override
-	public boolean authenticate(Credentials credentials) {
+	public SessionVM authenticate(Credentials credentials) {
+		SessionVM session = null;
 		CustomUser user = userRepo.getByEmail(credentials.getUsername());
 		if (user != null) {
-			if(user.getPassword() == credentials.getPassword()){
+			if(user.getPassword().equals(credentials.getPassword())){
 				this.currentUser = user;
-				sessionSvc.beginSession(user);
+				session = sessionSvc.beginSession(user);
 			}
 		}
-		return getCurrentUser() != null;
+		return session;
 	}
 
 	@Override

@@ -45,6 +45,22 @@
         "body" : "empty"
       }
     },
+    "formwallApi.userEndpoint.signin" : {
+      "path" : "signin",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.formwall.web.UserEndpoint.signin",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "formwallApi.userEndpoint.register" : {
       "path" : "register/{email}",
       "httpMethod" : "POST",
@@ -121,38 +137,25 @@
   },
   "descriptor" : {
     "schemas" : {
-      "Session" : {
-        "id" : "Session",
+      "Credentials" : {
+        "id" : "Credentials",
         "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "user" : {
-            "$ref" : "CustomUser"
-          },
-          "expiration" : {
-            "type" : "string",
-            "format" : "date-time"
-          }
-        }
-      },
-      "CustomUser" : {
-        "id" : "CustomUser",
-        "type" : "object",
-        "properties" : {
-          "email" : {
+          "username" : {
             "type" : "string"
           },
           "password" : {
             "type" : "string"
-          },
-          "roles" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
+          }
+        }
+      },
+      "SessionVM" : {
+        "id" : "SessionVM",
+        "type" : "object",
+        "properties" : {
+          "token" : {
+            "type" : "string",
+            "format" : "int64"
           }
         }
       },
@@ -245,9 +248,17 @@
     "methods" : {
       "com.formwall.web.SeedEndpoint.seed" : {
       },
+      "com.formwall.web.UserEndpoint.signin" : {
+        "request" : {
+          "$ref" : "Credentials"
+        },
+        "response" : {
+          "$ref" : "SessionVM"
+        }
+      },
       "com.formwall.web.UserEndpoint.register" : {
         "response" : {
-          "$ref" : "Session"
+          "$ref" : "SessionVM"
         }
       },
       "com.formwall.web.FieldTypeEndpoint.list" : {

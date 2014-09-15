@@ -1,10 +1,10 @@
 package com.formwall.services;
 
 import com.formwall.entities.CustomUser;
-import com.formwall.entities.Session;
+import com.formwall.web.models.SessionVM;
 
 public interface ISessionService {
-	Session beginSession(CustomUser user);
+	SessionVM beginSession(CustomUser user);
 
 	public CustomUser retrieveUser(String authCode);
 }

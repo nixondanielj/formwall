@@ -18,19 +18,24 @@ formwallApp.config(['$routeProvider', function ($routeProvider) {
         });
 }]);
 
-formwallApp
-  .directive('formDisplay', function () {
-      return {
-          restrict: "E",
-          templateUrl: '/app/views/formdisplay.html'
-      };
-  });
+formwallApp.run(function ($rootScope, $window) {
+    // no ending slash on root
+    var root = 'http://localhost:8888/_ah/api';
+    var apiURL = root + '/formwallApi/v1/';
+    // loads api and notifies all scopes that backend is ready
+    var apisToLoad = 2, apisLoaded = 0;
+    var apiLoadCallback = function () {
+        if (++apisLoaded == apisToLoad) {
+            $rootScope.is_backend_ready = true;
+            $rootScope.$apply();
+        }
+    }
+    $window.init = function () {
+        gapi.client.load('formwallApi', 'v1', apiLoadCallback, root);
+        gapi.client.load('oauth2', 'v2', apiLoadCallback);
+    }
+});
 
-
-
-// no ending slash
-var root = 'http://localhost:8888/_ah/api';
-var apiURL = root + '/formwallApi/v1/';
 function init() {
     window.init();
 }

@@ -8,6 +8,7 @@ import com.formwall.entities.CustomUser;
 import com.formwall.entities.Session;
 import com.formwall.repositories.ISessionRepository;
 import com.formwall.services.ISessionService;
+import com.formwall.web.models.SessionVM;
 
 public class SessionService implements ISessionService {
 
@@ -21,12 +22,14 @@ public class SessionService implements ISessionService {
 		sessionRepo.persist(session);
 	}
 	@Override
-	public Session beginSession(CustomUser user) {
+	public SessionVM beginSession(CustomUser user) {
 		Session session = new Session();
 		session.setUser(user);
 		// abusing the side effect of creation on the call to persist in renewsession...
 		renewSession(session);
-		return session;
+		SessionVM vm = new SessionVM();
+		vm.token = session.getId();
+		return vm;
 	}
 	public boolean isValidSession(Session session) {
 		return session != null && session.getExpiration().after(new Date());

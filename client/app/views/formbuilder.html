@@ -1,24 +1,45 @@
-﻿<div class="pull-left formEditor">
-    <h2>{{form.title}}</h2>
-    <div ng-repeat="field in form.fields">
-        <input type="text" ng-model="field.label" placeholder="Label" />
-        <input type="{{field.type}}" ng-model="field.placeholder" placeholder="Placeholder" />
-        <select ng-model="field.type" ng-options="fieldType for fieldType in form.availableFieldTypes"></select>
-        <label>Required?</label><input type="checkbox" ng-model="field.required" />
+﻿<div class="formMenu pull-left">
+    <ul class="formControls">
+        <li>
+            <label>Form Id:</label>
+            <input type="text" ng-model="form.customId" />
+        </li>
+        <li>
+            <label>Display Name:</label>
+            <input type="text" ng-model="form.title" />
+        </li>
+        <li>
+            <label>Form Availability</label>
+            <div>
+                <label>Now?</label><input type="checkbox" ng-model="form.availableNow" />
+                <div>
+                    <input ng-show="!form.availableNow" type="date" ng-model="form.availableStart" />
+                    <span ng-show="form.availableNow">Now</span>
+                    until
+                    <input type="date" ng-model="form.availableEnd" />
+                </div>
+            </div>
+        </li>
+        <li>
+            <button class="btn btn-primary" ng-click="saveForm()">Save for Later</button>
+        </li>
+        <li>
+            <button class="btn btn-success" ng-click="saveAndPublish()">Save and Publish!</button>
+        </li>
+    </ul>
+</div> 
+<div class="pull-left content">
+    <div class="pull-left">
+        <form-editor form="form"></form-editor>
     </div>
-    <button ng-click="addField()">Add a Field</button>
-    <div>
-        <label>Button Text</label>
-        <input type="text" ng-model="form.btnText" />
+    <div class="pull-left">
+        <h4>This form is for preview purposes only.</h4>
+        <p>
+            Clicking the "{{form.btnText || "Submit"}}" button will not have any effect or save any data.
+            <br />
+            Other fields will display the same behavior and constraints as they will in the production version of the form.
+        </p>
+        <hr />
+        <form-display form="displayForm"></form-display>
     </div>
-</div>
-<div class="pull-left">
-    <h4>This form is for preview purposes only.</h4>
-    <p>        
-        Clicking the "{{form.btnText || "Submit"}}" button will not have any effect or save any data. 
-        
-        Other fields will display the same behavior and constraints as they will in the production version of the form.
-    </p>
-    <hr />
-    <form-display></form-display>
 </div>

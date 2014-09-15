@@ -7,25 +7,39 @@ import javax.inject.Named;
 import javax.mail.MessagingException;
 
 import com.formwall.entities.CustomUser;
-import com.formwall.entities.Session;
+import com.formwall.services.Credentials;
 import com.formwall.services.DuplicateException;
+import com.formwall.services.IAuthService;
 import com.formwall.services.ICustomUserService;
 import com.formwall.services.ISessionService;
+import com.formwall.web.models.SessionVM;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.ConflictException;
+import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.inject.Provider;
 
 @Api(name = "formwallApi", version = "v1")
 public class UserEndpoint {
 	private ICustomUserService usrSvc;
 	private ISessionService sessionSvc;
+	private Provider<IAuthService> authSvcPrvdr;
 	
 	@Inject
-	public UserEndpoint(ICustomUserService usrSvc, ISessionService sessionSvc){
+	public UserEndpoint(ICustomUserService usrSvc, ISessionService sessionSvc, Provider<IAuthService> authSvc){
 		this.sessionSvc = sessionSvc;
 		this.usrSvc = usrSvc;
+		this.authSvcPrvdr = authSvc;
+	}
+	
+	public SessionVM signin(Credentials credentials) throws UnauthorizedException{
+		SessionVM session = authSvcPrvdr.get().authenticate(credentials);
+		if(session == null){
+			throw new UnauthorizedException(AuthFailures.login.name());
+		}
+		return session;
 	}
 
-	public Session register(@Named("email") String email)
+	public SessionVM register(@Named("email") String email)
 			throws ConflictException, UnsupportedEncodingException, MessagingException {
 		try{
 			CustomUser user = usrSvc.registerCustom(email);

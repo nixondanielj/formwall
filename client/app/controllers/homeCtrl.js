@@ -21,13 +21,7 @@ formwallCtrls.controller("HomeCtrl", ['$scope', '$window', 'AuthSvc', function (
         }
     ];
     $scope.carouselInterval = 5000;
-    // aggravating init logic...
-    $window.init = function () {
-        gapi.client.load('formwallApi', 'v1', function () {
-            $scope.is_backend_ready = true;
-            $scope.$apply();
-        }, root);
-    }
+    
 
     $scope.register = function () {
         authSvc.registerCustom($scope.email);
