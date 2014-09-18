@@ -12,13 +12,24 @@
                     <tab heading="About Us"></tab>
                 </tabset>
             </div>
-            <div class="col-md-1 col-md-offset-1">
-                <button ng-click="login()" class="btn btn-primary">Log In</button>
+            <div ng-if="!isAuthed()">
+                <div class="col-md-1 col-md-offset-1">
+                    <button ng-click="login()" class="btn btn-primary">Log In</button>
+                </div>
+                <div class="col-md-1">
+                    <button ng-click="login()" class="btn btn-success">Sign Up Free!</button>
+                </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1">
-                <button ng-click="login()" class="btn btn-success">Sign Up Free!</button>
+            <div class="col-md-offset-1" ng-if="isAuthed()">
+                <div class="col-md-1">
+                    Welcome {{ getUser().given_name || getUser().email }}!
+                </div>
+                <div class="col-md-1">
+                    <button ng-click="signOut()" class="btn btn-error">Log Out</button>
+                </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
 </nav>

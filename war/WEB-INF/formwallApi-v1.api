@@ -30,7 +30,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com" ],
       "rosyMethod" : "com.formwall.web.SeedEndpoint.seed",
       "request" : {
         "parameters" : {
@@ -51,7 +51,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com" ],
       "rosyMethod" : "com.formwall.web.UserEndpoint.signin",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
@@ -67,7 +67,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com" ],
       "rosyMethod" : "com.formwall.web.UserEndpoint.register",
       "request" : {
         "parameters" : {
@@ -88,7 +88,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com" ],
       "rosyMethod" : "com.formwall.web.FieldTypeEndpoint.list",
       "request" : {
         "body" : "empty"
@@ -103,7 +103,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com" ],
       "rosyMethod" : "com.formwall.web.FormEndpoint.postForm",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
@@ -119,7 +119,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com" ],
       "rosyMethod" : "com.formwall.web.FormEndpoint.get",
       "request" : {
         "parameters" : {
@@ -156,6 +156,9 @@
           "token" : {
             "type" : "string",
             "format" : "int64"
+          },
+          "identifier" : {
+            "type" : "string"
           }
         }
       },

@@ -7,16 +7,18 @@
       };
   });
 
-formwallCtrls.controller('FormwallNavCtrl', ['$scope', 'AuthSvc', function ($scope, authSvc) {
+formwallCtrls.controller('FormwallNavCtrl', ["$modal",'$scope', 'AuthSvc', function ($modal, $scope, authSvc) {
     $scope.login = function () {
         authSvc.signOut();
-        authSvc.silentGoogleSignin(function () {
-            if (!authSvc.isAuthed()) {
-                authSvc.fireLoginModal();
-            }
-        });
+        authSvc.fireLoginModal();
+    }
+    $scope.getUser = function () {
+        return authSvc.getCurrentUser();
     }
     $scope.isAuthed = function(){
         return authSvc.isAuthed();
+    }
+    $scope.signOut = function () {
+        authSvc.signOut();
     }
 }]);

@@ -18,7 +18,7 @@ import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.inject.Provider;
 
-@Api(name = "formwallApi", version = "v1")
+@Api(name = "formwallApi", version = "v1", clientIds={"616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com"})
 public class UserEndpoint {
 	private ICustomUserService usrSvc;
 	private ISessionService sessionSvc;

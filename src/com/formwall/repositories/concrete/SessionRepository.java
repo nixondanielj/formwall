@@ -14,7 +14,7 @@ public class SessionRepository extends BaseRepository implements
 
 	@Override
 	public Session getByAuthCode(String authcode){
-		return ofy().load().type(Session.class).filter("authcode", authcode).first().now();
+		return ofy().load().type(Session.class).id(Long.parseLong(authcode)).now();
 	}
 
 	@Override

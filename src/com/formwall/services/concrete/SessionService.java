@@ -28,6 +28,7 @@ public class SessionService implements ISessionService {
 		// abusing the side effect of creation on the call to persist in renewsession...
 		renewSession(session);
 		SessionVM vm = new SessionVM();
+		vm.identifier = user.getEmail();
 		vm.token = session.getId();
 		return vm;
 	}

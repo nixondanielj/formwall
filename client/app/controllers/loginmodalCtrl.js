@@ -1,8 +1,10 @@
 ﻿formwallCtrls.controller("LoginModalCtrl", ["$scope", "AuthSvc", "$modalInstance", function ($scope, authSvc, $modalInstance) {
+    $scope.credentials = {};
+    $scope.register = {};
     $scope.customSignin = function () {
         authSvc.customSignin({
-            email: $scope.signinEmail,
-            password: $scope.password
+            username: $scope.credentials.email,
+            password: $scope.credentials.password
         }, function () {
             if (authSvc.isAuthed()) {
                 $modalInstance.dismiss();
@@ -18,6 +20,6 @@
         });
     }
     $scope.customRegister = function () {
-        authSvc.customRegister($scope.email);
+        authSvc.customRegister($scope.register.email);
     }
 }]);

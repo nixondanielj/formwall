@@ -14,6 +14,7 @@ public class AuthHelper {
 			request.email = user.getEmail();
 		} else {
 			request.authCode = new HttpServletRequestWrapper((HttpServletRequest) req).getHeader("Authorization");
+			request.authCode = request.authCode.split(" ")[1];
 		}
 		return request;
 	}

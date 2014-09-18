@@ -1,6 +1,7 @@
 ﻿/// <reference path="../references.js" />
 formwallSvcs.service("AuthSvc", ["$modal", function ($modal) {
     var authed = false;
+    var currentUser = {};
     var signInWithGoogle = function (now, callback) {
         gapi.auth.authorize({
             client_id: '616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com',
@@ -14,6 +15,7 @@ formwallSvcs.service("AuthSvc", ["$modal", function ($modal) {
         gapi.client.oauth2.userinfo.get().execute(function (resp) {
             if (!resp.code) {
                 authed = true;
+                currentUser = resp;
             }
             if (nextCallback) {
                 nextCallback();
@@ -22,8 +24,9 @@ formwallSvcs.service("AuthSvc", ["$modal", function ($modal) {
     }
     var customSigninCallback = function (resp, nextCallback) {
         if (!resp.code) {
-            gapi.auth.setToken(resp.token);
+            gapi.auth.setToken({ access_token: resp.token });
             authed = true;
+            currentUser.email = resp.identifier;
             if (nextCallback) {
                 nextCallback();
             }
@@ -31,12 +34,15 @@ formwallSvcs.service("AuthSvc", ["$modal", function ($modal) {
     }
     this.customSignin = function (credentials, callback) {
         gapi.client.formwallApi.userEndpoint.signin(credentials)
-            .execute(function () {
-                customSigninCallback();
+            .execute(function (resp) {
+                customSigninCallback(resp);
                 if (callback) {
-                    callback();
+                    callback(resp);
                 }
             });
+    }
+    this.getCurrentUser = function () {
+        return currentUser;
     }
     this.loudGoogleSignin = function (callback) {
         signInWithGoogle(false, callback);
@@ -48,12 +54,13 @@ formwallSvcs.service("AuthSvc", ["$modal", function ($modal) {
         $modal.open({
             templateUrl: 'app/views/modals/login.html',
             controller: 'LoginModalCtrl',
-            size: 'sm'
+            size: 'lg'
         });
     }
     this.signOut = function () {
         gapi.auth.setToken(null);
         authed = false;
+        currentUser = {};
     }
     this.isAuthed = function () {
         return authed;
