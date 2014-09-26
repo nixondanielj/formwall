@@ -12,7 +12,7 @@ public class AuthHelper {
 		AuthenticationRequest request = new AuthenticationRequest();
 		if(user != null){
 			request.email = user.getEmail();
-		} else {
+		} else if(request.authCode != null){
 			request.authCode = new HttpServletRequestWrapper((HttpServletRequest) req).getHeader("Authorization");
 			request.authCode = request.authCode.split(" ")[1];
 		}

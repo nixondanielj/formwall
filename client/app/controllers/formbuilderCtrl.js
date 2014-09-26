@@ -1,19 +1,12 @@
 ﻿/// <reference path="../references.js" />
-formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams", "$timeout", function ($scope, $window, $routeParams, $timeout) {
-    $scope.form = {
-        title: "demo form",
-        availableFieldTypes: ['text', 'email', 'phone', 'zip', 'color', 'date'],
-        fields: [
-            {
-                id: 1,
-                fieldTypeId: 7,
-                label: 'my first field',
-                required: true,
-                type: 'color',
-                placeholder: '#ffff00'
-            }
-        ]
-    };
+formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams", "$timeout", "FormSvc", function ($scope, $window, $routeParams, $timeout, formSvc) {
+    var ready = false;
+    formSvc.getForm($routeParams.formId, function (newForm) {
+        $scope.form = newForm;
+        ready = true;
+        $scope.displayForm = copyForm($scope.form);
+        $scope.$apply();
+    });
     var copyForm = function (form) {
         var shallowCopy = function (obj) {
             var copiedObj = {};
@@ -29,9 +22,10 @@ formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams"
         }
         return copiedForm;
     }
-    $scope.displayForm = copyForm($scope.form);
     $scope.$watch('form', function () {
-        refreshForm();
+        if (ready) {
+            refreshForm();
+        }
     }, true);
     $scope.addField = function () {
         $scope.form.fields.push({ type: 'text' })

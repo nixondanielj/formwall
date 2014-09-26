@@ -2,10 +2,12 @@ package com.formwall.entities;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class FieldType {
 	@Id private Long id;
+	@Index
 	private String htmlType;
 	private String defaultRegexValidator;
 	private String defaultRequiredMessage;

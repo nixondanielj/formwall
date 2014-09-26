@@ -10,4 +10,6 @@ public interface IFieldTypeRepository {
 
 	public abstract FieldType getById(Long fieldTypeId);
 
+	public abstract FieldType getByHtmlType(String type);
+
 }

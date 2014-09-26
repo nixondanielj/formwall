@@ -1,6 +1,6 @@
 ﻿var formwallSvcs = angular.module('formwallSvcs', []);
 var formwallCtrls = angular.module('formwallControllers', ['formwallSvcs']);
-var formwallApp = angular.module('formwall', ['ngRoute', 'formwallControllers', 'ui.bootstrap']);
+var formwallApp = angular.module('formwall', ['ngRoute', 'formwallControllers', 'ui.bootstrap', 'formwallSvcs']);
 
 formwallApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -18,24 +18,22 @@ formwallApp.config(['$routeProvider', function ($routeProvider) {
         });
 }]);
 
-formwallApp.run(function ($rootScope, $window) {
-    // no ending slash on root
-    var root = 'http://localhost:8888/_ah/api';
-    var apiURL = root + '/formwallApi/v1/';
-    // loads api and notifies all scopes that backend is ready
-    var apisToLoad = 2, apisLoaded = 0;
-    var apiLoadCallback = function () {
-        if (++apisLoaded == apisToLoad) {
-            $rootScope.is_backend_ready = true;
-            $rootScope.$apply();
-        }
-    }
-    $window.init = function () {
-        gapi.client.load('formwallApi', 'v1', apiLoadCallback, root);
-        gapi.client.load('oauth2', 'v2', apiLoadCallback);
-    }
-});
+formwallApp.run(['$rootScope', 'AuthSvc', function ($rootScope, authSvc) {
+    $rootScope.is_backend_ready = true;
+}]);
 
-function init() {
-    window.init();
+// no ending slash on root
+var root = 'http://localhost:8888/_ah/api';
+var apiURL = root + '/formwallApi/v1/';
+// loads api and notifies all scopes that backend is ready
+var apisToLoad = 2, apisLoaded = 0;
+var apiLoadCallback = function () {
+    if (++apisLoaded == apisToLoad) {
+        angular.bootstrap(document, ["formwall"]);
+    }
+}
+
+window.init = function () {
+    gapi.client.load('formwallApi', 'v1', apiLoadCallback, root);
+    gapi.client.load('oauth2', 'v2', apiLoadCallback);
 }

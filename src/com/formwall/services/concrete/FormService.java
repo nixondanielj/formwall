@@ -110,4 +110,18 @@ public class FormService implements IFormService {
 		return fm;
 	}
 
+	@Override
+	public FormFM getNewForm() {
+		FormFM fm = new FormFM();
+		fm.setAvailableFieldTypes(fieldTypeRepo.getAll());
+		fm.setActive(true);
+		fm.setTitle("My New Form");
+		FieldFM field = new FieldFM();
+		field.setLabel("Field 1");
+		field.setType("text");
+		field.setFieldTypeId(fieldTypeRepo.getByHtmlType(field.getType()).getId());
+		fm.getFields().add(field);
+		return fm;
+	}
+
 }
