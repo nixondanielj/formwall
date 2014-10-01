@@ -1,11 +1,13 @@
 ﻿/// <reference path="../references.js" />
-formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams", "$timeout", "FormSvc", function ($scope, $window, $routeParams, $timeout, formSvc) {
+formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams", "FormSvc", "AuthSvc", function ($scope, $window, $routeParams, formSvc, authSvc) {
     var ready = false;
-    formSvc.getForm($routeParams.formId, function (newForm) {
-        $scope.form = newForm;
-        ready = true;
-        $scope.displayForm = copyForm($scope.form);
-        $scope.$apply();
+    authSvc.callAfterCurrentSignin(function () {
+        formSvc.getForm($routeParams.formId, function (newForm) {
+            $scope.form = newForm;
+            ready = true;
+            $scope.displayForm = copyForm($scope.form);
+            $scope.$apply();
+        });
     });
     var copyForm = function (form) {
         var shallowCopy = function (obj) {

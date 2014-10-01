@@ -20,6 +20,10 @@ formwallApp.config(['$routeProvider', function ($routeProvider) {
 
 formwallApp.run(['$rootScope', 'AuthSvc', function ($rootScope, authSvc) {
     $rootScope.is_backend_ready = true;
+    authSvc.callAfterNextSignin(function () {
+        $rootScope.$apply();
+    });
+    authSvc.silentGoogleSignin();
 }]);
 
 // no ending slash on root

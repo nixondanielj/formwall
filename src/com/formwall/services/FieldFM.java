@@ -5,7 +5,6 @@ public class FieldFM {
 	private Long fieldTypeId;
 	private String label;
 	private boolean required;
-	private String type;
 	public Long getId() {
 		return id;
 	}
@@ -29,11 +28,5 @@ public class FieldFM {
 	}
 	public void setRequired(boolean required) {
 		this.required = required;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
 	}
 }

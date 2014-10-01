@@ -256,9 +256,6 @@
           },
           "required" : {
             "type" : "boolean"
-          },
-          "type" : {
-            "type" : "string"
           }
         }
       }

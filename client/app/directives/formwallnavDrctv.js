@@ -7,7 +7,7 @@
       };
   });
 
-formwallCtrls.controller('FormwallNavCtrl', ["$modal", '$scope', 'AuthSvc', function ($modal, $scope, authSvc) {
+formwallCtrls.controller('FormwallNavCtrl', ["$modal", '$scope', 'AuthSvc', '$location', function ($modal, $scope, authSvc, $location) {
     $scope.login = function () {
         authSvc.signOut();
         authSvc.fireLoginModal();
@@ -20,5 +20,6 @@ formwallCtrls.controller('FormwallNavCtrl', ["$modal", '$scope', 'AuthSvc', func
     }
     $scope.signOut = function () {
         authSvc.signOut();
+        $location.path('/');
     }
 }]);

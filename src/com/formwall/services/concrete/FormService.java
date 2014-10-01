@@ -106,7 +106,6 @@ public class FormService implements IFormService {
 		fm.setId(field.getId());
 		fm.setLabel(field.getLabel());
 		fm.setRequired(field.isRequired());
-		fm.setType(field.getFieldType().getHtmlType());
 		return fm;
 	}
 
@@ -118,8 +117,7 @@ public class FormService implements IFormService {
 		fm.setTitle("My New Form");
 		FieldFM field = new FieldFM();
 		field.setLabel("Field 1");
-		field.setType("text");
-		field.setFieldTypeId(fieldTypeRepo.getByHtmlType(field.getType()).getId());
+		field.setFieldTypeId(fieldTypeRepo.getByHtmlType("text").getId());
 		fm.getFields().add(field);
 		return fm;
 	}
