@@ -9,6 +9,14 @@ formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams"
             $scope.$apply();
         });
     });
+
+    $scope.saveForm = function (form) {
+        formSvc.saveForm(form);
+    }
+    $scope.publishForm = function (form) {
+        form.active = true;
+        saveForm(form);
+    }
     var copyForm = function (form) {
         var shallowCopy = function (obj) {
             var copiedObj = {};
@@ -18,9 +26,9 @@ formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams"
             return copiedObj;
         }
         var copiedForm = shallowCopy(form);
-        copiedForm.fields = [];
-        for (var i = 0; i < form.fields.length; i++) {
-            copiedForm.fields.push(shallowCopy(form.fields[i]));
+        copiedForm.formFields = [];
+        for (var i = 0; i < form.formFields.length; i++) {
+            copiedForm.formFields.push(shallowCopy(form.formFields[i]));
         }
         return copiedForm;
     }
@@ -29,9 +37,6 @@ formwallCtrls.controller("FormbuilderCtrl", ["$scope", "$window", "$routeParams"
             refreshForm();
         }
     }, true);
-    $scope.addField = function () {
-        $scope.form.fields.push({ type: 'text' })
-    }
     $scope.doNothing = function () {
 
     }

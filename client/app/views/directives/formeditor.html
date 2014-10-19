@@ -1,10 +1,12 @@
 ﻿<div class="formEditor">
     <h2>{{form.title}}</h2>
-    <div ng-repeat="field in form.fields">
+    <div ng-repeat="field in form.formFields">
+        <a ng-click="form.fields.splice($index, 1)">[x]</a>
         <input type="text" ng-model="field.label" placeholder="Label" />
         <input type="{{field.type}}" ng-model="field.placeholder" placeholder="Placeholder" />
         <!--
-            Note, the fieldType.id "value" renders strangely in browser (as a 0, 1, etc). Research here: http://stackoverflow.com/questions/12139152/how-to-set-value-property-in-angularjs-ng-options
+            Note, the fieldType.id "value" renders strangely in browser (as a 0, 1, etc regardless of actual value). Research here: 
+            http://stackoverflow.com/questions/12139152/how-to-set-value-property-in-angularjs-ng-options
             indicates that ng handles (maps?) these values internally in order to allow any "type" of thing to be selected as the value. Verified - this appears to be true
 
             Verify that this behavior is working properly by submitting value to server and seeing what it says prior to assuming this is your bug
@@ -15,7 +17,7 @@
         <select ng-model="field.fieldTypeId" ng-options="fieldType.id as fieldType.htmlType for fieldType in form.availableFieldTypes"></select>
         <label>Required?</label><input type="checkbox" ng-model="field.required" />
     </div>
-    <button ng-click="addField()">Add a Field</button>
+    <button class="btn btn-default" ng-click="addField()">Add a Field</button>
     <div>
         <label>Button Text</label>
         <input type="text" ng-model="form.btnText" />

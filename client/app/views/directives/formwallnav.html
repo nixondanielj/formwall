@@ -2,19 +2,19 @@
     <div class="container-fluid bg-default">
         <div class="row text-center">
             <a ng-href="/">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     FormWall
                 </div>
             </a>
-            <div class="col-md-4">
-                <tabset class="center-block" type="pills">
-                    <tab heading="Features"></tab>
-                    <tab heading="Pricing"></tab>
-                    <tab heading="Support"></tab>
-                    <tab heading="About Us"></tab>
-                </tabset>
-            </div>
             <div ng-if="!isAuthed()">
+                <div class="col-md-6">
+                    <tabset justified="true" class="center-block" type="pills">
+                        <tab heading="Features"></tab>
+                        <tab heading="Pricing"></tab>
+                        <tab heading="Support"></tab>
+                        <tab heading="About Us"></tab>
+                    </tabset>
+                </div>
                 <div class="col-md-1 col-md-offset-1">
                     <button ng-click="login()" class="btn btn-primary">Log In</button>
                 </div>
@@ -23,14 +23,25 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <div class="col-md-offset-1" ng-if="isAuthed()">
-                <div class="col-md-1">
+            <div ng-if="isAuthed()">
+                <div class="col-md-4 col-md-offset-1">
+                    <tabset justified ="true" type="pills">
+                        <tab heading="Dashboard"></tab>
+                        <tab heading="Dashboard"></tab>
+                        <tab heading="Support"></tab>
+                    </tabset>
+                </div>
+                <div class="col-md-2">
+                    <a href="#/formbuilder">
+                        <button class="btn btn-success">Create Form</button>
+                    </a>
+                </div>
+                <div class="col-md-offset-1 col-md-1">
                     Welcome {{ getUser().given_name || getUser().email }}!
                 </div>
                 <div class="col-md-1">
                     <button ng-click="signOut()" class="btn btn-error">Log Out</button>
                 </div>
-                <div class="col-md-1"></div>
             </div>
         </div>
     </div>

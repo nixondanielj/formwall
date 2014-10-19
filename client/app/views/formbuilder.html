@@ -21,10 +21,11 @@
             </div>
         </li>
         <li>
-            <button class="btn btn-primary" ng-click="saveForm()">Save for Later</button>
+            <button class="btn btn-primary" ng-click="saveForm(form)">Save</button>
         </li>
         <li>
-            <button class="btn btn-success" ng-click="saveAndPublish()">Save and Publish!</button>
+            <button ng-if="!form.active" class="btn btn-success" ng-click="publishForm(form)">Save and Publish!</button>
+            <button ng-if="form.active" class="btn btn-error" ng-click="unpublishForm(form)">Unpublish Form</button>
         </li>
     </ul>
 </div> 

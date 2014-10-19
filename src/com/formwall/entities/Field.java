@@ -11,7 +11,7 @@ public class Field {
 	private boolean required;
 	private String errorMessage;
 	private String requiredMessage;
-	
+	private String placeholder;
 	private Ref<FieldType> fieldType;
 	public Long getId() {
 		return id;
@@ -48,5 +48,11 @@ public class Field {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getPlaceholder() {
+		return placeholder;
+	}
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
 	}
 }

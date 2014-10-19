@@ -112,14 +112,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "formwallApi.formEndpoint.postForm" : {
-      "path" : "postForm",
+    "formwallApi.formEndpoint.post" : {
+      "path" : "post",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "616786009709-f6g6dm3jaj8jbobng8eo5dp3augg2dmj.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.formwall.web.FormEndpoint.postForm",
+      "rosyMethod" : "com.formwall.web.FormEndpoint.post",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -231,11 +231,28 @@
           "active" : {
             "type" : "boolean"
           },
-          "fields" : {
+          "formFields" : {
             "type" : "array",
             "items" : {
               "$ref" : "FieldFM"
             }
+          },
+          "customId" : {
+            "type" : "string"
+          },
+          "availableNow" : {
+            "type" : "boolean"
+          },
+          "availabilityStart" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "availabilityEnd" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "buttonText" : {
+            "type" : "string"
           }
         }
       },
@@ -256,6 +273,9 @@
           },
           "required" : {
             "type" : "boolean"
+          },
+          "placeholder" : {
+            "type" : "string"
           }
         }
       }
@@ -286,7 +306,7 @@
           "$ref" : "FormFM"
         }
       },
-      "com.formwall.web.FormEndpoint.postForm" : {
+      "com.formwall.web.FormEndpoint.post" : {
         "request" : {
           "$ref" : "FormFM"
         }

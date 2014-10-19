@@ -1,6 +1,7 @@
 package com.formwall.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.googlecode.objectify.Ref;
@@ -12,6 +13,40 @@ public class Form {
 	@Id private Long id;
 	private String title;
 	private List<Ref<Field>> fields;
+	private Date availabilityStart;
+	private Date availabilityEnd;
+	private String customId;
+	private String buttonText;
+	public Date getAvailabilityStart() {
+		return availabilityStart;
+	}
+	public void setAvailabilityStart(Date availabilityStart) {
+		this.availabilityStart = availabilityStart;
+	}
+	public Date getAvailabilityEnd() {
+		return availabilityEnd;
+	}
+	public void setAvailabilityEnd(Date availabilityEnd) {
+		this.availabilityEnd = availabilityEnd;
+	}
+	public String getCustomId() {
+		return customId;
+	}
+	public void setCustomId(String customId) {
+		this.customId = customId;
+	}
+	public String getButtonText() {
+		return buttonText;
+	}
+	public void setButtonText(String buttonText) {
+		this.buttonText = buttonText;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public void setFields(List<Ref<Field>> fields) {
+		this.fields = fields;
+	}
 	private boolean active;
 	public Form(){
 		fields = new ArrayList<Ref<Field>>();

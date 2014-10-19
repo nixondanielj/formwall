@@ -1,6 +1,7 @@
 package com.formwall.services.concrete;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,9 +61,14 @@ public class FormService implements IFormService {
 			}
 		}
 		form.setActive(model.isActive());
+		if(model.isAvailableNow()){
+			form.setAvailabilityStart(new Date());
+		}
+		form.setAvailabilityEnd(model.getAvailabilityEnd());
+		form.setCustomId(model.getCustomId());
 		form.setTitle(model.getTitle());
 		List<Field> fields = new ArrayList<Field>();
-		for(FieldFM fm : model.getFields()){
+		for(FieldFM fm : model.getFormFields()){
 			fields.add(map(fm));
 		}
 		fieldRepo.persist(fields);
@@ -78,6 +84,7 @@ public class FormService implements IFormService {
 		field.setFieldType(type);
 		field.setLabel(fm.getLabel());
 		field.setRequired(fm.isRequired());
+		field.setPlaceholder(fm.getPlaceholder());
 		return field;
 	}
 
@@ -93,8 +100,12 @@ public class FormService implements IFormService {
 			fm.setActive(form.isActive());
 			fm.setId(id);
 			fm.setTitle(form.getTitle());
+			fm.setAvailabilityStart(form.getAvailabilityStart());
+			fm.setAvailabilityEnd(form.getAvailabilityEnd());
+			fm.setCustomId(form.getCustomId());
+			fm.setButtonText(form.getButtonText());
 			for(Field field : form.getFields()){
-				fm.getFields().add(map(field));
+				fm.getFormFields().add(map(field));
 			}
 		}
 		return fm;
@@ -113,12 +124,13 @@ public class FormService implements IFormService {
 	public FormFM getNewForm() {
 		FormFM fm = new FormFM();
 		fm.setAvailableFieldTypes(fieldTypeRepo.getAll());
-		fm.setActive(true);
+		fm.setActive(false);
 		fm.setTitle("My New Form");
 		FieldFM field = new FieldFM();
 		field.setLabel("Field 1");
 		field.setFieldTypeId(fieldTypeRepo.getByHtmlType("text").getId());
-		fm.getFields().add(field);
+		fm.setFormFields(new ArrayList<FieldFM>());
+		fm.getFormFields().add(field);
 		return fm;
 	}
 

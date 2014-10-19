@@ -5,6 +5,7 @@ public class FieldFM {
 	private Long fieldTypeId;
 	private String label;
 	private boolean required;
+	private String placeholder;
 	public Long getId() {
 		return id;
 	}
@@ -28,5 +29,11 @@ public class FieldFM {
 	}
 	public void setRequired(boolean required) {
 		this.required = required;
+	}
+	public String getPlaceholder() {
+		return placeholder;
+	}
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
 	}
 }

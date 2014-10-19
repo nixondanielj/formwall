@@ -26,7 +26,7 @@ public class FormEndpoint {
 		this.authSvcPrvdr = authSvcPrvdr;
 	}
 
-	public void postForm(FormFM model, User user, HttpServletRequest req)
+	public void post(FormFM model, User user, HttpServletRequest req)
 			throws UnauthorizedException {
 		if (authSvcPrvdr.get().authenticate(AuthHelper.getAuthReq(user, req))) {
 			try {
